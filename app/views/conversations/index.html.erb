@@ -1,0 +1,53 @@
+<style>
+.avatarVideoContainer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #000;
+}
+
+.userVideoContainer {
+  width: 50px;
+  height: 50px;
+}
+</style>
+
+<div id="main_video_div" class="avatarVideoContainer push-to-talk-activator" data-user-token="<%= @token %>" data-api-key="<%= @api_key %>">
+    <div id="avatarVideoContainer" class="avatarVideoContainer push-to-talk-activator" style="overflow: hidden;">
+        <video autoplay="" playsinline="true" style="object-fit: cover; width: 100%; height: 100%;"></video>
+    </div>
+</div>
+
+<div id="userVideoContainer" class="userVideoContainer">
+</div>
+
+<script type="text/javascript">
+    var token = document.getElementById('main_video_div').dataset.userToken;
+    var apiKey = document.getElementById('main_video_div').dataset.apiKey;
+
+    let fmMessageHandler = (msg) => {
+        console.log('FaceMe Message: ', msg);
+      if( msg.faceMeMessageType === 'Ready' ) {
+            //The Digital Human is setup and streaming to the end user
+        } else if ( msg.faceMeMessageType === 'AvatarQuestionText' ) {
+            //Question asked of the Digital Human
+        } else if ( msg.faceMeMessageType === 'AvatarAnswer' ) {
+            //Response to the question, including meta data.
+        }
+    };
+
+    var options = {
+      // Conversation ID isn't a secret value, so we can write it here in plaintext.
+      "conversationId": "9c7dafd7-2d90-49aa-b66a-2dfc394865e1",
+      "url": "https://dal-admin.faceme.com",
+      "avatarVideoContainerElement": document.getElementById('avatarVideoContainer'),
+      "localVideoContainerElement": document.getElementById('userVideoContainer'),
+      "messageHandler": fmMessageHandler,
+      "apiKey": apiKey
+    }
+
+    let faceme = new FaceMe(options);
+    faceme.initWithToken(token);
+</script>

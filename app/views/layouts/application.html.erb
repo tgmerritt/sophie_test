@@ -6,15 +6,16 @@
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Sophie Test" %>">
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= csrf_meta_tags %>
   </head>
-  <body>
-    <header>
-      <%= render 'layouts/navigation' %>
-    </header>
-    <main role="main">
+  <body style="margin:0">
+    <!-- header>
+      <%# render 'layouts/navigation' %>
+    </header -->
+    <%# <main role="main"> %>
        <%= render 'layouts/messages' %>
        <%= yield %>
-    </main>
+    <%# </main> %>
   </body>
 </html>

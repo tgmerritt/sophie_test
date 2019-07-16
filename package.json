@@ -1,5 +1,13 @@
 {
   "name": "sophie_test",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "@rails/webpacker": "^4.0.7",
+    "faceme-sdk": "^2.24.0",
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.5.3"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^3.7.2"
+  }
 }
