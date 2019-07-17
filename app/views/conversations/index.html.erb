@@ -31,10 +31,23 @@
         console.log('FaceMe Message: ', msg);
       if( msg.faceMeMessageType === 'Ready' ) {
             //The Digital Human is setup and streaming to the end user
+            faceme.playWelcomeMessage();
+            console.log('We hit the Ready message')
         } else if ( msg.faceMeMessageType === 'AvatarQuestionText' ) {
             //Question asked of the Digital Human
         } else if ( msg.faceMeMessageType === 'AvatarAnswer' ) {
             //Response to the question, including meta data.
+        }
+    };
+
+    window.onkeydown = (e) => {
+        if( e.code === 'Space' && !e.repeat ) {
+            faceme.startRecording();
+        }
+    };
+    window.onkeyup = (e) => {
+        if( e.code === 'Space' && !e.repeat ) {
+            faceme.stopRecording();
         }
     };
 
