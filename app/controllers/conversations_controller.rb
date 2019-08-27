@@ -1,5 +1,7 @@
 class ConversationsController < ApplicationController
   before_action :set_conversation, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token, only: :create
+
 
   # GET /conversations
   # GET /conversations.json
