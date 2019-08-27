@@ -15,7 +15,8 @@ class HoundsController < ApplicationController
   # GET /hounds/new
   def new
     # Place the STT string in the query call
-    response = Houndify.new.query("What is the weather in Prosper, TX")
+    orchestration = Orchestration.new("What is the weather in Prosper, TX", "Houndify")
+    orchestration.orchestrate
     # Pass the response string to the TTS engine of UneeQ
     puts response 
     @hound = Hound.new
