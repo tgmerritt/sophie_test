@@ -26,7 +26,6 @@ class Orchestration
     def map_response_to_uneeq_json
         case @partner
         when "Houndify"
-            puts @response
             html = nil
             html_assets = nil
             text = @response["AllResults"][0]["WrittenResponseLong"]
