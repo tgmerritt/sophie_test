@@ -182,6 +182,9 @@ $(document).ready(function(){
             case 'SessionEnded':
                 document.getElementById('msg').innerHTML = 'Session Ended.';
                 break;
+            case 'SessionError':
+                console.log("SessionError: " + msg.error);
+                break;
             case 'ErrorEndingSession':
                 console.error(msg.error);
                 break;
