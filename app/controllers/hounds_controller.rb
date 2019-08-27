@@ -16,7 +16,9 @@ class HoundsController < ApplicationController
   def new
     # Place the STT string in the query call
     orchestration = Orchestration.new("What is the weather in Prosper, TX", "Houndify")
-    orchestration.orchestrate
+    response = orchestration.orchestrate
+    # puts JSON.pretty_generate(response)
+    render json: response
     @hound = Hound.new
   end
 

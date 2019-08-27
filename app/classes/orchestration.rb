@@ -68,14 +68,14 @@ class Orchestration
                             "additive": true, # boolean, whether the emotion should be added to existing emotions (true), or replace existing ones (false)
                             "default": true # boolean, whether this is the default emotion 
                         }
-                    ],
-                    "displayHtml": {
-                        "html": html
-                    }
+                    ]
+                    # "displayHtml": {
+                    #     "html": html
+                    # }
                 }
-            }
-            # "CONVERSATION_PAYLOAD": "context of the conversation between utterances",
-            # "MATCHED_CONTEXT": "Informs the Platform of the intent match the chatbot made",
+            },
+            "CONVERSATION_PAYLOAD": "",
+            "MATCHED_CONTEXT": "",
             # "ERROR_DESCRIPTION": "A description of the error which has occurred" # This is irrelevant if the conversation is successful
         }
         return body
