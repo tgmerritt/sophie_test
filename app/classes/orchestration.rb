@@ -68,9 +68,9 @@ class Orchestration
                         "default": true # boolean, whether this is the default emotion 
                     }
                 ]
-                # "displayHtml": {
-                #     "html": html
-                # }
+                "displayHtml": {
+                    "html": html
+                }
             }
         }
 
