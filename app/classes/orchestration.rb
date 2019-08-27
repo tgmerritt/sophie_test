@@ -26,8 +26,11 @@ class Orchestration
     def map_response_to_uneeq_json
         case @partner
         when "Houndify"
+            puts @response.body
             text = @response["AllResults"][0]["WrittenResponseLong"]
-            html_assets = @response["AllResults"][0]["HTMLData"]["HTMLHead"]
+            if @response["AllResults"][0]["HTMLData"] && @response["AllResults"][0]["HTMLData"]["HTMLHead"]
+                html_assets = @response["AllResults"][0]["HTMLData"]["HTMLHead"]
+            end
             html = @response["AllResults"][0]["HTMLData"]["SmallScreenHTML"]
             combined_html = "#{html_assets} #{html}"
             create_json_to_send(text, combined_html)
