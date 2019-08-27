@@ -27,11 +27,15 @@ class Orchestration
         case @partner
         when "Houndify"
             puts @response
+            html = nil
+            html_assets = nil
             text = @response["AllResults"][0]["WrittenResponseLong"]
             if @response["AllResults"][0]["HTMLData"] && @response["AllResults"][0]["HTMLData"]["HTMLHead"]
                 html_assets = @response["AllResults"][0]["HTMLData"]["HTMLHead"]
             end
-            html = @response["AllResults"][0]["HTMLData"]["SmallScreenHTML"]
+            if @response["AllResults"][0]["HTMLData"] && @response["AllResults"][0]["HTMLData"]["SmallScreenHTML"]
+                html = @response["AllResults"][0]["HTMLData"]["SmallScreenHTML"]
+            end
             combined_html = "#{html_assets} #{html}"
             create_json_to_send(text, combined_html)
         else
