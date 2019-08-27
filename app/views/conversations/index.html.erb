@@ -127,11 +127,17 @@ $(document).ready(function(){
     function addKeyListeners() {
         document.addEventListener('keydown', (e) => {
             if (e.code === 'Space' && !e.repeat && e.target.type !== 'text') {
+                document.getElementById('prompt').removeAttribute('class', 'prompt');
+                document.getElementById('prompt').innerHTML = "Listening...";
+                document.getElementById('prompt').setAttribute('class', 'prompt-active');
                 fm.startRecording();
             }
         });
         document.addEventListener('keyup', (e) => {
             if (e.code === 'Space' && !e.repeat && e.target.type !== 'text') {
+                document.getElementById('prompt').removeAttribute('class', 'prompt-active');
+                document.getElementById('prompt').innerHTML = "Hold <b>space</b> to speak.";
+                document.getElementById('prompt').setAttribute('class', 'prompt');
                 fm.stopRecording();
             }
         });
