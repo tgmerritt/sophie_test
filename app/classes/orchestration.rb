@@ -72,10 +72,6 @@ class Orchestration
             # "MATCHED_CONTEXT": "Informs the Platform of the intent match the chatbot made",
             # "ERROR_DESCRIPTION": "A description of the error which has occurred" # This is irrelevant if the conversation is successful
         }
-        send_it(body)
-    end
-
-    def send_it(body)
-        "POST to the UneeQ platform"
+        return body
     end
 end
