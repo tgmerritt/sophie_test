@@ -21,6 +21,7 @@
     <select id="speakerSelect" onchange="fm.setSpeaker(this.value)"></select>
     <button onclick="hideSettings()">Done</button>
 </div>
+<div id="injectHTML" class="html_response"></div>
 <!-- Weirdly we're having timing issues when I call conversations.js instead -->
 <script type="text/javascript">
 $(document).ready(function(){
@@ -161,6 +162,9 @@ $(document).ready(function(){
             case 'AvatarAvailable':
                 document.body.classList.add('live');
                 document.getElementById('msg').innerHTML = 'Loading...';
+                break;
+            case 'AvatarAnswerContent':
+                document.getElementById('injectHTML').innerHTML = msg.content;
                 break;
             case 'DeviceListUpdated':
                 devices = msg.devices;

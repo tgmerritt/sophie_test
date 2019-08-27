@@ -35,7 +35,14 @@ class Orchestration
             if @response["AllResults"][0]["HTMLData"] && @response["AllResults"][0]["HTMLData"]["SmallScreenHTML"]
                 html = @response["AllResults"][0]["HTMLData"]["SmallScreenHTML"]
             end
-            combined_html = "#{html_assets} #{html}"
+            if html.nil?
+                combined_html = nil
+            else
+                css = html_assets["CSS"].gsub(/\"/, '\'')
+                js = html_assets["JS"].gsub(/\"/, '\'')
+                combined_html = css + js + html
+                combined_html.gsub!(/[\r\n]+/, ' ')
+            end
             create_json_to_send(text, combined_html)
         else
             return nil
@@ -67,7 +74,7 @@ class Orchestration
                         "additive": true, # boolean, whether the emotion should be added to existing emotions (true), or replace existing ones (false)
                         "default": true # boolean, whether this is the default emotion 
                     }
-                ]
+                ],
                 "displayHtml": {
                     "html": html
                 }
@@ -75,7 +82,7 @@ class Orchestration
         }
 
         body = {
-            "answer": JSON.generate(answer_body),            
+            "answer": JSON.generate(answer_body),         
             "matchedContext": "",
             "conversationPayload": "",
             # "ERROR_DESCRIPTION": "A description of the error which has occurred" # This is irrelevant if the conversation is successful
