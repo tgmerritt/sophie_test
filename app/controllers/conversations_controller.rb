@@ -32,7 +32,6 @@ class ConversationsController < ApplicationController
     orchestration = Orchestration.new(params["fm-question"], "Houndify")
     response = orchestration.orchestrate
     # {"sid"=>"12345", "fm-custom-data"=>"", "fm-question"=>"Hi Sophie how are you", "fm-avatar"=>"", "fm-conversation"=>nil, "conversation"=>{}}
-    puts JSON.pretty_print(response)
     render json: response
   end
 
