@@ -39,5 +39,4 @@ RSpec.describe Orchestration do
       )
     end
   end
-  
 end

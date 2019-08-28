@@ -17,7 +17,7 @@ class Orchestration
 
     def query_houndify
         hound = Houndify.new
-        hound.set_conversation_state(@conversation_state) if @conversation_state
+        hound.set_conversation_state(JSON.parse(@conversation_state)) if @conversation_state # UneeQ returns conversation state to us stringified, so we have to unravel that and make it a JSON object again
         @response = hound.query(@query)
     end
 
