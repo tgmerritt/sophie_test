@@ -68,6 +68,18 @@ class Orchestration
         end
     end
 
+    def houndify_conversation_state
+        if @response["AllResults"] && @response["AllResults"][0]["ConversationState"]
+            generate_json_string(@response["AllResults"][0]["ConversationState"])
+        else
+            ""
+        end
+    end
+
+    def generate_json_string(data)
+        JSON.generate(data)
+    end
+
     def create_json_to_send(text, html)
         answer_body = {
             "answer": text,
@@ -97,9 +109,9 @@ class Orchestration
         }
 
         body = {
-            "answer": JSON.generate(answer_body),         
+            "answer": generate_json_string(answer_body),         
             "matchedContext": "",
-            "conversationPayload": "",
+            "conversationPayload": houndify_conversation_state,
         }
         return body
     end

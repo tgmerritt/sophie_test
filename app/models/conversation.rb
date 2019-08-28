@@ -17,7 +17,7 @@ class Conversation < ApplicationRecord
 
     def encode_payload
         payload = {
-            'sid' => "12345", # Not really sure what this should be
+            'sid' => SecureRandom.uuid, # Generate a random conversation ID each time we boot up a digital human convo
             'fm-custom-data' => "",  # Documentation isn't clear on this at all
             'fm-workspace' => Rails.application.secrets.fm_workspace.to_s,
         }
