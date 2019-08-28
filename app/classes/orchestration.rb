@@ -1,6 +1,7 @@
 class Orchestration
-    def initialize(query, partner)
+    def initialize(query, conversation_state = nil, partner)
         @query = query # string, query from the STT engine of UneeQ
+        @conversation_state = conversation_state # Maintain conversation state between utterances
         @partner = partner # string, the name of the partner company we reach out to
         @response = nil
     end
@@ -15,7 +16,9 @@ class Orchestration
     end
 
     def query_houndify
-        @response = Houndify.new.query(@query)
+        hound = Houndify.new
+        hound.set_conversation_state(@conversation_state) if @conversation_state
+        @response = hound.query(@query)
     end
 
     def orchestrate

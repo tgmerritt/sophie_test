@@ -29,9 +29,8 @@ class ConversationsController < ApplicationController
   # POST /conversations
   # POST /conversations.json
   def create
-    orchestration = Orchestration.new(params["fm-question"], "Houndify")
+    orchestration = Orchestration.new(params["fm-question"], params["fm-conversation"], "Houndify")
     response = orchestration.orchestrate
-    # {"sid"=>"12345", "fm-custom-data"=>"", "fm-question"=>"Hi Sophie how are you", "fm-avatar"=>"", "fm-conversation"=>nil, "conversation"=>{}}
     render json: response
   end
 
