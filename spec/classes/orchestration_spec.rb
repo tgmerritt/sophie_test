@@ -6,7 +6,28 @@ RSpec.describe Orchestration do
     before(:each) do 
       Houndify.any_instance.stub(:query).and_return(json_data)
     end
-    let (:response) { Orchestration.new("What is the weather in Pensacola, FL?", "Houndify").orchestrate }
+    params = {
+      "fm-question" => "What is the weather in Pensacola, FL?",
+      "fm-custom-data" => "{\"latitude\":\"33.2323248\",\"longitude\":\"33.2323248\"}"
+    }
+    let (:response) { Orchestration.new(params, "Houndify").orchestrate }
+    
+    it "ensures Orchestration is newed up correctly" do 
+      params = {
+        "fm-question" => "What is the weather in Pensacola, FL?",
+        "fm-conversation" => "",
+        "fm-custom-data" => "{\"latitude\":\"33.2323248\",\"longitude\":\"33.2323248\"}"
+      }
+      o = Orchestration.new(params, "Houndify")
+      expect(o).to be_instance_of(Orchestration)
+      expect(o.location).to eq ({"latitude"=>"33.2323248", "longitude"=>"33.2323248"})
+      expect(o.query).to eq "What is the weather in Pensacola, FL?"
+      expect(o.conversation_state).to eq nil
+    end
+
+    it "will not new up Orchestration if wrong arguments are passed" do
+      expect{ Orchestration.new("Houndify") }.to raise_error(ArgumentError)
+    end
     
     it "returns an expected JSON object" do 
       expect(response[:answer]).to eq (

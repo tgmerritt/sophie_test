@@ -6,7 +6,7 @@ class ConversationsController < ApplicationController
   # GET /conversations
   # GET /conversations.json
   def index
-    Conversation.new.authenticate_to_faceme
+    Conversation.new.authenticate_to_faceme(params)
 
     @token = Conversation.first.token
     @api_key = Rails.application.secrets.fm_api_key
@@ -29,7 +29,7 @@ class ConversationsController < ApplicationController
   # POST /conversations
   # POST /conversations.json
   def create
-    orchestration = Orchestration.new(params["fm-question"], params["fm-conversation"], "Houndify")
+    orchestration = Orchestration.new(params, "Houndify")
     response = orchestration.orchestrate
     render json: response
   end

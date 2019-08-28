@@ -1,7 +1,10 @@
 class Orchestration
-    def initialize(query, conversation_state = nil, partner)
-        @query = query # string, query from the STT engine of UneeQ
-        @conversation_state = conversation_state # Maintain conversation state between utterances
+    attr_accessor :query, :conversation_state, :location, :partner, :response
+
+    def initialize(params, partner)
+        @query = params["fm-question"] # string, query from the STT engine of UneeQ
+        @conversation_state = params["fm-conversation"].blank? ? nil : params["fm-conversation"] # Maintain conversation state between utterances
+        @location = params["fm-custom-data"].blank? ? {} : JSON.parse(params["fm-custom-data"])
         @partner = partner # string, the name of the partner company we reach out to
         @response = nil
     end
@@ -18,6 +21,9 @@ class Orchestration
     def query_houndify
         hound = Houndify.new
         hound.set_conversation_state(JSON.parse(@conversation_state)) if @conversation_state # UneeQ returns conversation state to us stringified, so we have to unravel that and make it a JSON object again
+        if @location["latitude"].any? && @location["longitude"].any?
+            hound.set_location(@location["latitude"].to_f,  @location["longitude"].to_f)
+        end
         @response = hound.query(@query)
     end
 
