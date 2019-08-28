@@ -189,7 +189,36 @@ dy {
     display: flex;
 }
 #controls button {
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    border-radius: 0.6em;
+    cursor: pointer;
+    display: -webkit-box;
+    display: flex;
+    align-self: center;
+    font-size: .6rem;
+    line-height: 1;
+    margin: 2px;
+    padding: .3em .8em;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100;
+    justify-content: center;
     margin-bottom: 5px;
-    width: 130px;
+    width: 110px;
+    border-radius: 10px;
+    border-color: #242340;
+    color: #fff;
+    box-shadow: 0 0 40px 40px #242340 inset, 0 0 0 0 #242340;
+    -webkit-transition: all 150ms ease-in-out;
+    transition: all 150ms ease-in-out;
+    &:hover {
+        box-shadow: 0 0 10px 0 #242340 inset, 0 0 10px 4px #242340;
+    }
 }
 
