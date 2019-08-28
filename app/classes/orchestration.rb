@@ -26,34 +26,49 @@ class Orchestration
     def map_response_to_uneeq_json
         case @partner
         when "Houndify"
-            html = nil
-            html_assets = nil
-            text = @response["AllResults"][0]["WrittenResponseLong"]
-            if @response["AllResults"][0]["HTMLData"] && @response["AllResults"][0]["HTMLData"]["HTMLHead"]
-                html_assets = @response["AllResults"][0]["HTMLData"]["HTMLHead"]
-            end
-            if @response["AllResults"][0]["HTMLData"] && @response["AllResults"][0]["HTMLData"]["SmallScreenHTML"]
-                html = @response["AllResults"][0]["HTMLData"]["SmallScreenHTML"]
-            end
-            if html.nil?
-                combined_html = nil
-            else
-                css = html_assets["CSS"].gsub(/\"/, '\'')
-                js = html_assets["JS"].gsub(/\"/, '\'')
-                combined_html = css + js + html
-                combined_html.gsub!(/[\r\n]+/, ' ')
-            end
-            create_json_to_send(text, combined_html)
+            handle_houndify_daily_limit
         else
             return nil
         end
     end
 
+    def handle_houndify_daily_limit
+        if @response[:Error]
+            create_json_to_send("Sorry, I cannot answer that right now", nil)
+        else
+            text = @response["AllResults"][0]["WrittenResponseLong"]
+            create_json_to_send(text, houndify_combined_html(houndify_html, houndify_html_assets))
+        end
+    end
+
+    def houndify_combined_html(html, html_assets)
+        if html.nil?
+            combined_html = nil
+        else
+            css = html_assets["CSS"].gsub(/\"/, '\'')
+            js = html_assets["JS"].gsub(/\"/, '\'')
+            combined_html = css + js + html
+            combined_html.gsub!(/[\r\n]+/, ' ')
+        end
+    end
+
+    def houndify_html_assets
+        if @response["AllResults"][0]["HTMLData"] && @response["AllResults"][0]["HTMLData"]["HTMLHead"]
+            @response["AllResults"][0]["HTMLData"]["HTMLHead"]
+        else
+            nil
+        end
+    end
+
+    def houndify_html
+        if @response["AllResults"][0]["HTMLData"] && @response["AllResults"][0]["HTMLData"]["SmallScreenHTML"]
+            @response["AllResults"][0]["HTMLData"]["SmallScreenHTML"]
+        else
+            nil
+        end
+    end
+
     def create_json_to_send(text, html)
-        # headers = {
-        #     "Content-Type": "application/jwt",
-        #     "workspace": Rails.application.secrets.workspace_id
-        # }
         answer_body = {
             "answer": text,
             "instructions": {
@@ -85,7 +100,6 @@ class Orchestration
             "answer": JSON.generate(answer_body),         
             "matchedContext": "",
             "conversationPayload": "",
-            # "ERROR_DESCRIPTION": "A description of the error which has occurred" # This is irrelevant if the conversation is successful
         }
         return body
     end
