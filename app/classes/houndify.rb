@@ -108,6 +108,8 @@ class Houndify
       headers["Hound-Response-Accept-Encoding"] = "gzip, deflate"
     end
 
+    puts "Houndify Headers before Query"
+    puts headers
     # When would we need a proxy?
     # if self.proxyHost
     #   conn = http.client.HTTPSConnection(self.proxyHost, self.proxyPort)
