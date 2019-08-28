@@ -21,7 +21,7 @@ class Orchestration
     def query_houndify
         hound = Houndify.new
         hound.set_conversation_state(JSON.parse(@conversation_state)) if @conversation_state # UneeQ returns conversation state to us stringified, so we have to unravel that and make it a JSON object again
-        if @location["latitude"].any? && @location["longitude"].any?
+        if !@location["latitude"].blank? && !@location["longitude"].blank?
             hound.set_location(@location["latitude"].to_f,  @location["longitude"].to_f)
         end
         @response = hound.query(@query)
