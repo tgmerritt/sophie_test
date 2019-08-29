@@ -6,6 +6,7 @@ window.onload = function () {
     let selectedSpeaker = null;
     var token = document.getElementById('msg').dataset.userToken;
     var apiKey = document.getElementById('msg').dataset.apiKey;
+
     const fm = new FaceMe({
         url: 'https://dal-admin.faceme.com',
         conversationId: '9c7dafd7-2d90-49aa-b66a-2dfc394865e1',

@@ -15,12 +15,27 @@ function defaultPosition(position) {
 }
 
 function createLinkOnPage(latitude, longitude) {
-    document.getElementById('lds-roller').remove();
-    var link = document.createElement('a');
-    link.setAttribute('class', 'link_style');
-    link.innerHTML = "Start";
-    link.setAttribute('href', "/conversations?latitude=" + latitude + "&longitude=" + longitude);
-    document.getElementById('link_to_start').appendChild(link);
+    buildElement(latitude, longitude);
+    // var link = document.createElement('a');
+    // link.setAttribute('class', 'link_style');
+    // link.innerHTML = "Start";
+    // link.setAttribute('href', "/conversations?latitude=" + latitude + "&longitude=" + longitude);
+    // document.getElementById('link_to_start').appendChild(link);
+    // document.getElementById('lds-roller').remove();
 }
+
+function buildElement(latitude, longitude) {
+    setInterval(function () {
+        if (document.getElementById("lds-roller")) {
+            var link = document.createElement('a');
+            link.setAttribute('class', 'link_style');
+            link.innerHTML = "Start";
+            link.setAttribute('href', "/conversations?latitude=" + latitude + "&longitude=" + longitude);
+            document.getElementById('link_to_start').appendChild(link);
+            document.getElementById('lds-roller').remove();
+            clearInterval();
+        }
+    }, 100);
+};
 
 getLocation();
