@@ -21,9 +21,9 @@ class Houndify
 
     @hound_request_info = {
       "ClientID" => Rails.application.secrets.houndify_client_id, 
-      "UserID" => userID,
-      "Latitude" => 37.388309, 
-      "Longitude" => -121.973968
+      "UserID" => userID
+      # "Latitude" => 37.388309, 
+      # "Longitude" => -121.973968
     }
   end
 
@@ -108,8 +108,8 @@ class Houndify
       headers["Hound-Response-Accept-Encoding"] = "gzip, deflate"
     end
 
-    puts "Houndify Headers before Query"
-    puts headers
+    # puts "Houndify Headers before Query"
+    # puts headers
     # When would we need a proxy?
     # if self.proxyHost
     #   conn = http.client.HTTPSConnection(self.proxyHost, self.proxyPort)

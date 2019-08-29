@@ -24,8 +24,8 @@ class Orchestration
         if !@location["latitude"].blank? && !@location["longitude"].blank?
             hound.set_location(@location["latitude"].to_f,  @location["longitude"].to_f)
         end
-        puts "Hound object before calling query"
-        puts hound.inspect
+        # puts "Hound object before calling query"
+        # puts hound.inspect
         @response = hound.query(@query)
     end
 

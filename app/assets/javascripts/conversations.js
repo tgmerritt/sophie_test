@@ -90,6 +90,24 @@ window.onload = function () {
                 fm.stopRecording();
             }
         });
+
+        let touchScreen = document.getElementById('avatar-container');
+        touchScreen.addEventListener('touchstart', pressingDown, false);
+        touchScreen.addEventListener('touchend', notPressingDown, false);
+
+        function pressingDown() {
+            document.getElementById('prompt').removeAttribute('class', 'prompt');
+            document.getElementById('prompt').innerHTML = "Listening...";
+            document.getElementById('prompt').setAttribute('class', 'prompt-active');
+            fm.startRecording();
+        }
+
+        function notPressingDown() {
+            document.getElementById('prompt').removeAttribute('class', 'prompt-active');
+            document.getElementById('prompt').innerHTML = "Hold <b>space</b> to speak.";
+            document.getElementById('prompt').setAttribute('class', 'prompt');
+            fm.stopRecording();
+        }
     }
 
     fm.messages.subscribe((msg) => {
@@ -140,6 +158,15 @@ window.onload = function () {
                 break;
             case 'SessionResumed':
                 console.log("SessionResumed");
+                break;
+            case 'RecordingStarted':
+                console.log('RecordingStarted');
+                break;
+            case 'RecordingStopped':
+                console.log('RecordingStopped');
+                break;
+            case 'AvatarAnswer':
+                console.log('AvatarAnswer');
                 break;
             default:
                 console.log('FaceMe: Unhandled message \'' + msg.faceMeMessageType + '\'');

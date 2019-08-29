@@ -10,21 +10,25 @@
 <script type="text/javascript">
     function getLocation() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
+            navigator.geolocation.getCurrentPosition(showPosition, defaultPosition);
         } else {
             console.log("Geolocation is not supported by this browser.");
         }
     }
 
     function showPosition(position) {
-        var obj = {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-        }
+        createLinkOnPage(position.coords.latitude, position.coords.longitude);
+    }
+
+    function defaultPosition(position) {
+        createLinkOnPage("37.388309", "-121.973968")
+    }
+
+    function createLinkOnPage(latitude, longitude) {
         var link = document.createElement('a');
         link.setAttribute('class', 'link_style');
         link.innerHTML = "Start";
-        link.setAttribute('href', "/conversations?latitude="+position.coords.latitude+"&longitude="+position.coords.latitude);
+        link.setAttribute('href', "/conversations?latitude="+latitude+"&longitude="+longitude);
         document.getElementById('link_to_start').appendChild(link);
     }
 
