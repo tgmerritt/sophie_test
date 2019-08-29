@@ -6,7 +6,6 @@
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Sophie Test" %>">
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
-    <script src="//unpkg.com/faceme-sdk/dist/umd"></script>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= csrf_meta_tags %>
   </head>

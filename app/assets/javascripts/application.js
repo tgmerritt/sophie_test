@@ -13,4 +13,5 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
+//= require faceme-sdk/dist/index
 //= require_tree .
