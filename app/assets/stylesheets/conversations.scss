@@ -45,7 +45,7 @@ dy {
     bottom: 20px;
     left: 20px;
     color: white;
-    text-shadow: 1px 1px rgba(0,0,0,0.8);
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.8);
     padding-left: 10px;
     border-left: 4px solid #46bfac;
     font-size: 12px;
@@ -60,18 +60,23 @@ dy {
     border-radius: 4px;
     padding: 20px;
 }
+
 #settings.show {
     display: block;
 }
+
 #settings h2 {
     margin: 0;
 }
+
 #settings h4 {
     margin-bottom: 0;
 }
+
 #settings select {
     width: 100%;
 }
+
 #settings button {
     margin-top: 40px;
 }
@@ -98,13 +103,14 @@ dy {
     max-width: 500px;
     overflow: auto;
 }
+
 #transcript::-webkit-scrollbar {
     display: none;
 }
 
 #transcript .transcript-msg {
     margin-top: 10px;
-    background-color: rgba(255,255,255,0.8);
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 25px;
     padding: 10px 20px;
 }
@@ -113,7 +119,7 @@ dy {
     position: absolute;
     bottom: 20px;
     right: 20px;
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgba(255, 255, 255, 0.5);
     border: none;
     border-radius: 40px;
     padding: 10px 20px;
@@ -121,16 +127,18 @@ dy {
     font-weight: 300;
     display: none;
 }
+
 #askInput::placeholder {
     color: white;
     font-weight: 300;
 }
+
 .live #askInput {
     display: block;
 }
 
 .prompt {
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     color: white;
     border-radius: 40px;
     margin: auto;
@@ -141,10 +149,11 @@ dy {
     left: 0;
     right: 0;
     padding: 5px;
-    border: 2px solid rgba(255,255,255,0.5);
+    border: 2px solid rgba(255, 255, 255, 0.5);
     font-size: 12px;
     display: none;
 }
+
 .live #prompt {
     display: block;
 }
@@ -160,12 +169,12 @@ dy {
     left: 0;
     right: 0;
     padding: 5px;
-    border: 2px solid rgba(255,255,255,0.5);
+    border: 2px solid rgba(255, 255, 255, 0.5);
     font-size: 12px;
     display: none;
     box-shadow: 0 0 0 0 rgba(232, 76, 61, 0.7);
     background-color: #e84c3d;
-    background-size:cover;
+    background-size: cover;
     background-repeat: no-repeat;
     cursor: pointer;
     -webkit-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
@@ -174,10 +183,29 @@ dy {
     animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
 }
 
-@-webkit-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
-@-moz-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
-@-ms-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
-@keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+@-webkit-keyframes pulse {
+    to {
+        box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);
+    }
+}
+
+@-moz-keyframes pulse {
+    to {
+        box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);
+    }
+}
+
+@-ms-keyframes pulse {
+    to {
+        box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);
+    }
+}
+
+@keyframes pulse {
+    to {
+        box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);
+    }
+}
 
 #controls {
     position: absolute;
@@ -185,9 +213,11 @@ dy {
     flex-direction: column;
     display: none;
 }
+
 .live #controls {
     display: flex;
 }
+
 #controls button {
     box-sizing: border-box;
     -webkit-appearance: none;
@@ -217,6 +247,7 @@ dy {
     box-shadow: 0 0 40px 40px #242340 inset, 0 0 0 0 #242340;
     -webkit-transition: all 150ms ease-in-out;
     transition: all 150ms ease-in-out;
+
     &:hover {
         box-shadow: 0 0 10px 0 #242340 inset, 0 0 10px 4px #242340;
     }
@@ -237,7 +268,12 @@ dy {
     #controls {
         visibility: hidden;
     }
+
     #askInput {
+        visibility: hidden;
+    }
+
+    #injectHTML {
         visibility: hidden;
     }
 }
