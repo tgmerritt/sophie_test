@@ -89,3 +89,4 @@ pickle-email-*.html
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+.vscode/
