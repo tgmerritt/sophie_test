@@ -52,6 +52,14 @@ dy {
     line-height: 12px;
 }
 
+@media screen and (max-width: 568px) {
+    #local-transcript {
+        top: 20px; // on mobile display the transcript at the top of the page
+        bottom: 0px;
+        border-left: 0px solid #46bfac;
+    }
+}
+
 #settings {
     display: none;
     position: absolute;
