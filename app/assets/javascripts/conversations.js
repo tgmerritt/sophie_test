@@ -21,9 +21,35 @@ window.onload = function () {
 
     window.fm = fm;
 
+    function switchText() {
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            document.getElementById('prompt').innerHTML = "Press and hold screen to speak";
+        } else {
+            document.getElementById('prompt').innerHTML = "Hold <b>space</b> to speak.";
+        }
+    }
+
+    switchText();
+
     function fmReadyHandler() {
         addKeyListeners();
         fmReady = true;
+    }
+
+    function addListeningText() {
+        document.getElementById('prompt').innerHTML = "Listening...";
+    }
+
+    function addActivePrompt() {
+        document.getElementById('prompt').removeAttribute('class', 'prompt');
+        addListeningText();
+        document.getElementById('prompt').setAttribute('class', 'prompt-active');
+    }
+
+    function addNonActivePrompt() {
+        document.getElementById('prompt').removeAttribute('class', 'prompt-active');
+        switchText();
+        document.getElementById('prompt').setAttribute('class', 'prompt');
     }
 
     function addAvatarTranscript(msg) {
@@ -77,17 +103,13 @@ window.onload = function () {
     function addKeyListeners() {
         document.addEventListener('keydown', (e) => {
             if (e.code === 'Space' && !e.repeat && e.target.type !== 'text') {
-                document.getElementById('prompt').removeAttribute('class', 'prompt');
-                document.getElementById('prompt').innerHTML = "Listening...";
-                document.getElementById('prompt').setAttribute('class', 'prompt-active');
+                addActivePrompt()
                 fm.startRecording();
             }
         });
         document.addEventListener('keyup', (e) => {
             if (e.code === 'Space' && !e.repeat && e.target.type !== 'text') {
-                document.getElementById('prompt').removeAttribute('class', 'prompt-active');
-                document.getElementById('prompt').innerHTML = "Hold <b>space</b> to speak.";
-                document.getElementById('prompt').setAttribute('class', 'prompt');
+                addNonActivePrompt();
                 fm.stopRecording();
             }
         });
@@ -97,16 +119,12 @@ window.onload = function () {
         touchScreen.addEventListener('touchend', notPressingDown, false);
 
         function pressingDown() {
-            document.getElementById('prompt').removeAttribute('class', 'prompt');
-            document.getElementById('prompt').innerHTML = "Listening...";
-            document.getElementById('prompt').setAttribute('class', 'prompt-active');
+            addActivePrompt();
             fm.startRecording();
         }
 
         function notPressingDown() {
-            document.getElementById('prompt').removeAttribute('class', 'prompt-active');
-            document.getElementById('prompt').innerHTML = "Hold <b>space</b> to speak.";
-            document.getElementById('prompt').setAttribute('class', 'prompt');
+            addNonActivePrompt();
             fm.stopRecording();
         }
     }
