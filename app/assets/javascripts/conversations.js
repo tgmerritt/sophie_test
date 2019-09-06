@@ -52,6 +52,16 @@ window.onload = function () {
         document.getElementById('prompt').setAttribute('class', 'prompt');
     }
 
+    function pressingDown() {
+        addActivePrompt();
+        fm.startRecording();
+    }
+
+    function notPressingDown() {
+        addNonActivePrompt();
+        fm.stopRecording();
+    }
+
     function addAvatarTranscript(msg) {
         let newElement = document.createElement('div');
         newElement.classList.add('transcript-msg');
@@ -117,16 +127,6 @@ window.onload = function () {
         let touchScreen = document.getElementById('avatar-container');
         touchScreen.addEventListener('touchstart', pressingDown, false);
         touchScreen.addEventListener('touchend', notPressingDown, false);
-
-        function pressingDown() {
-            addActivePrompt();
-            fm.startRecording();
-        }
-
-        function notPressingDown() {
-            addNonActivePrompt();
-            fm.stopRecording();
-        }
     }
 
     fm.messages.subscribe((msg) => {
@@ -192,6 +192,21 @@ window.onload = function () {
                 break;
         }
     });
+
+    setTimeout(function () {
+        var stream = fm.deviceManager.mediaHandler.localStream$._value
+        var options = {};
+        var speechEvents = hark(stream, options);
+
+        speechEvents.on('speaking', function () {
+            console.log("Registering Harker Speech Event: speaking");
+            pressingDown();
+        });
+        speechEvents.on('stopped_speaking', function () {
+            notPressingDown();
+            console.log("Registering Harker Speech Event: stopped speaking");
+        });
+    }, 3000);
 }
 
 function askKeyPress(e) {
