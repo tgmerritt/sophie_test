@@ -4,6 +4,7 @@ window.onload = function () {
     let selectedMic = null;
     let selectedCam = null;
     let selectedSpeaker = null;
+    let speechEvents = null;
     var token = document.getElementById('msg').dataset.userToken;
     var apiKey = document.getElementById('msg').dataset.apiKey;
 
@@ -192,21 +193,40 @@ window.onload = function () {
                 break;
         }
     });
+}
 
-    setTimeout(function () {
+function setHarkerState(enabled) {
+    // I really hate that hoisting is a thing - and I'm not going to bother figuring out all the hoisting and non-hoisting going on with this function below
+    // The code is not DRY at all because the pressingDown and notPressingDown functions defined inside window.load do what the below does, but because of hoisting and scope I can't access them
+    // And I just can't be bothered to put time into figuring out why right now...
+
+    if (enabled) {
         var stream = fm.deviceManager.mediaHandler.localStream$._value
         var options = {};
-        var speechEvents = hark(stream, options);
-
-        speechEvents.on('speaking', function () {
+        window.speechEvents = hark(stream, options);
+        console.log("Enabling Harker");
+        window.speechEvents.on('speaking', function () {
             console.log("Registering Harker Speech Event: speaking");
-            pressingDown();
+            document.getElementById('prompt').removeAttribute('class', 'prompt');
+            document.getElementById('prompt').innerHTML = "Listening...";
+            document.getElementById('prompt').setAttribute('class', 'prompt-active');
+            fm.startRecording();
         });
-        speechEvents.on('stopped_speaking', function () {
-            notPressingDown();
+        window.speechEvents.on('stopped_speaking', function () {
             console.log("Registering Harker Speech Event: stopped speaking");
+            document.getElementById('prompt').removeAttribute('class', 'prompt-active');
+            document.getElementById('prompt').innerHTML = "Hold <b>space</b> to speak.";
+            document.getElementById('prompt').setAttribute('class', 'prompt');
+            fm.stopRecording();
         });
-    }, 3000);
+        document.getElementById('harker-btn').style.display = 'none';
+        document.getElementById('disable-harker-btn').style.display = 'block';
+    } else {
+        console.log("Disabling Harker");
+        window.speechEvents.stop();
+        document.getElementById('harker-btn').style.display = 'block';
+        document.getElementById('disable-harker-btn').style.display = 'none';
+    }
 }
 
 function askKeyPress(e) {
