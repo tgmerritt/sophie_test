@@ -178,6 +178,8 @@ class Houndify
   end
 
   def houndify_html
+      puts "HTML stuff from Houndify: "
+      puts @response["AllResults"][0]["HTMLData"]
       if @response["AllResults"][0]["HTMLData"] && @response["AllResults"][0]["HTMLData"]["SmallScreenHTML"]
           @response["AllResults"][0]["HTMLData"]["SmallScreenHTML"]
       else
@@ -198,8 +200,6 @@ class Houndify
   end
 
   def create_json_to_send(text, html)
-    puts "The HTML we are sending is: "
-    puts html
       answer_body = {
           "answer": text,
           "instructions": {
