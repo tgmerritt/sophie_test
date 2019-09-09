@@ -198,6 +198,8 @@ class Houndify
   end
 
   def create_json_to_send(text, html)
+    puts "The HTML we are sending is: "
+    puts html
       answer_body = {
           "answer": text,
           "instructions": {
