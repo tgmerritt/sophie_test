@@ -136,6 +136,7 @@ class Houndify
     })
 
     begin
+      puts response.body
       return JSON.load(response.body)
     rescue
       return { "Error": response }
