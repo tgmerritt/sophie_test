@@ -21,7 +21,8 @@ class Houndify
 
     @hound_request_info = {
       "ClientID" => Rails.application.secrets.houndify_client_id, 
-      "UserID" => userID
+      "UserID" => userID,
+      "StoredGlobalPagesToMatch" => ["Uneeq"]
       # "Latitude" => 37.388309, 
       # "Longitude" => -121.973968
     }
@@ -136,7 +137,7 @@ class Houndify
     })
 
     begin
-      puts response.body
+      # puts response.body
       return JSON.load(response.body)
     rescue
       return { "Error": response }
