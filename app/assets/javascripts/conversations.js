@@ -193,6 +193,9 @@ window.onload = function () {
                 break;
         }
     });
+
+    // Start the UneeQ demo script with a "greeting"
+    fm.sendTranscript("Start the unique demo script");
 }
 
 function setHarkerState(enabled) {
