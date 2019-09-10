@@ -112,12 +112,15 @@ window.onload = function () {
     }
 
     function addKeyListeners() {
+        // When the spacebar is pressed and held, UneeQ will begin to listen to the microphone
         document.addEventListener('keydown', (e) => {
             if (e.code === 'Space' && !e.repeat && e.target.type !== 'text') {
                 addActivePrompt()
                 fm.startRecording();
             }
         });
+
+        // When the held spacebar is released, the recording is finalized and sent to UneeQ for speech-to-text translation
         document.addEventListener('keyup', (e) => {
             if (e.code === 'Space' && !e.repeat && e.target.type !== 'text') {
                 addNonActivePrompt();
@@ -125,11 +128,14 @@ window.onload = function () {
             }
         });
 
+        // Touch screen support - allows the user to press on the glass of their phone or tablet to start "listening"
+        // Releasing this press will end the recording and send the spoken input to UneeQ for processing
         let touchScreen = document.getElementById('avatar-container');
         touchScreen.addEventListener('touchstart', pressingDown, false);
         touchScreen.addEventListener('touchend', notPressingDown, false);
     }
 
+    // Subscribe to UneeQ messages from the API, various response types, and trigger on certain actions
     fm.messages.subscribe((msg) => {
         switch (msg.faceMeMessageType) {
             case 'Ready':
@@ -193,9 +199,6 @@ window.onload = function () {
                 break;
         }
     });
-
-    // Start the UneeQ demo script with a "greeting"
-    fm.sendTranscript("Start the unique demo script");
 }
 
 function setHarkerState(enabled) {
