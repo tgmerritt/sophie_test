@@ -1,0 +1,98 @@
+{
+    "Format": "SoundHoundVoiceSearchResult",
+    "FormatVersion": "1.0",
+    "Status": "OK",
+    "NumToReturn": 1,
+    "AllResults": [{
+        "CommandKind": "ClientMatchCommand",
+        "SpokenResponse": "The CEO of unique is Danny Tomsett",
+        "SpokenResponseLong": "The CEO of unique is Danny Tomsett",
+        "WrittenResponse": "The CEO of unique is Danny Tomsett",
+        "WrittenResponseLong": "The CEO of unique is Danny Tomsett",
+        "AutoListen": false,
+        "ViewType": [
+            "Native",
+            "HTML",
+            "None"
+        ],
+        "HTMLData": {
+            "HTMLHead": {
+                "CSS": "<link rel=\"stylesheet\" href=\"//static.midomi.com/corpus/H_Zk82fGHFX/build/css/templates.min.css\">",
+                "JS": "<script src=\"//static.midomi.com/corpus/H_Zk82fGHFX/build/js/templates.min.js\"></script>"
+            },
+            "SmallScreenHTML": "<div class='h-template h-image-carousel-wrapper'>\n  <div class='h-image-carousel h-image-carousel-Small' data-carousel-id='h-image-carousel-0'><img src='http://i2.wp.com/www.makelemonade.nz/wp-content/uploads/2018/11/Danny-Tomsett.jpg'>\n<h1>Danny Tomsett</h1><caption>Giant among men</caption></div>\n  </div>",
+            "LargeScreenHTML": "<div class='h-template h-image-carousel-wrapper'>\n  <div class='h-image-carousel h-image-carousel-Small' data-carousel-id='h-image-carousel-0'><img src='http://i2.wp.com/www.makelemonade.nz/wp-content/uploads/2018/11/Danny-Tomsett.jpg'>\n  </div>\n  </div>"
+        },
+        "Emotion": "expression,wink,value,0.5,start,2,duration,5",
+        "Result": {
+            "action": "greeting"
+        },
+        "NativeData": {
+            "Result": {
+                "action": "greeting"
+            }
+        },
+        "MatchedItem": {
+            "Expression": "(\"Who is\" | \"Who's\"). \"the CEO of\" . (\"Uneeq\"|\"unique\"|\"FaceMe\"|\"face me\") . [\"?\"]",
+            "Result": {
+                "action": "greeting"
+            },
+            "SpokenResponse": "The CEO of unique is Danny Tomsett",
+            "SpokenResponseLong": "The CEO of unique is Danny Tomsett",
+            "WrittenResponse": "The CEO of unique is Danny Tomsett",
+            "WrittenResponseLong": "The CEO of unique is Danny Tomsett",
+            "HTMLData": {
+                "HTMLHead": {
+                    "CSS": "<link rel=\"stylesheet\" href=\"//static.midomi.com/corpus/H_Zk82fGHFX/build/css/templates.min.css\">",
+                    "JS": "<script src=\"//static.midomi.com/corpus/H_Zk82fGHFX/build/js/templates.min.js\"></script>"
+                },
+                "SmallScreenHTML": "<div class='h-template h-image-carousel-wrapper'>\n  <div class='h-image-carousel h-image-carousel-Small' data-carousel-id='h-image-carousel-0'><img src='http://i2.wp.com/www.makelemonade.nz/wp-content/uploads/2018/11/Danny-Tomsett.jpg'>\n<h1>Danny Tomsett</h1><caption>Giant among men</caption></div>\n  </div>",
+                "LargeScreenHTML": "<div class='h-template h-image-carousel-wrapper'>\n  <div class='h-image-carousel h-image-carousel-Small' data-carousel-id='h-image-carousel-0'><img src='http://i2.wp.com/www.makelemonade.nz/wp-content/uploads/2018/11/Danny-Tomsett.jpg'>\n  </div>\n  </div>"
+            },
+            "Emotion": "Happy",
+            "TestPhrases": [{
+                    "Phrase": "Who's the CEO of FaceMe?",
+                    "ShouldMatch": true
+                },
+                {
+                    "Phrase": "Who is the CEO of Face me",
+                    "ShouldMatch": true
+                },
+                {
+                    "Phrase": "Who is the CEO of unique?",
+                    "ShouldMatch": true
+                }
+            ],
+            "Comment": "CEO"
+        }
+    }],
+    "Disambiguation": {
+        "NumToShow": 1,
+        "ChoiceData": [{
+            "Transcription": "Who is the CEO of faceme?",
+            "ConfidenceScore": 0.6859999999999999,
+            "FormattedTranscription": "Who is the CEO of faceme?",
+            "FixedTranscription": "Who is the CEO of faceme"
+        }]
+    },
+    "ResultsAreFinal": [
+        true
+    ],
+    "DomainUsage": [{
+        "Domain": "Stored Page Match",
+        "DomainUniqueID": "d67e5184-35e2-4a6a-8d9e-db1263321541",
+        "CreditsUsed": 0
+    }],
+    "BuildInfo": {
+        "User": "knightly",
+        "Date": "Wed Aug 28 23:15:39 PDT 2019",
+        "Machine": "7fhpjh2.pnp.melodis.com",
+        "SVNRevision": "52961",
+        "SVNBranch": "dev_multi_machine",
+        "BuildNumber": "5892",
+        "Kind": "Low Fat",
+        "Variant": "release"
+    },
+    "QueryID": "59cf47b9-48a3-e767-f9eb-1de8886da098",
+    "ServerGeneratedId": "59cf47b9-48a3-e767-f9eb-1de8886da098"
+}

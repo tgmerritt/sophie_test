@@ -90,3 +90,4 @@ pickle-email-*.html
 yarn-debug.log*
 .yarn-integrity
 .vscode/
+config/ssl

@@ -1,6 +1,7 @@
 class Houndify
   require 'base64'
   require 'openssl'
+  require 'json'
 
   HOUND_SERVER="https://api.houndify.com"
   TEXT_ENDPOINT="/v1/text"
@@ -35,7 +36,6 @@ class Houndify
         hound.set_location(location["latitude"].to_f,  location["longitude"].to_f)
     end
     response = hound.query(query)
-    
     setup_houndify_json(response)
   end
 
@@ -151,10 +151,10 @@ class Houndify
   def handle_houndify_daily_limit(response)
     @response = response
     if @response[:Error]
-        create_json_to_send("Sorry, I cannot answer that right now", nil)
+        create_json_to_send("Sorry, I cannot answer that right now", nil, houndify_configure_expression)
     else
         text = @response["AllResults"][0]["WrittenResponseLong"]
-        create_json_to_send(text, houndify_combined_html(houndify_html, houndify_html_assets))
+        create_json_to_send(text, houndify_combined_html(houndify_html, houndify_html_assets), houndify_configure_expression)
     end
   end
 
@@ -178,13 +178,25 @@ class Houndify
   end
 
   def houndify_html
-      puts "HTML stuff from Houndify: "
-      puts @response["AllResults"][0]["HTMLData"]
       if @response["AllResults"][0]["HTMLData"] && @response["AllResults"][0]["HTMLData"]["SmallScreenHTML"]
           @response["AllResults"][0]["HTMLData"]["SmallScreenHTML"]
       else
           nil
       end
+  end
+
+  def houndify_configure_expression
+    if @response["AllResults"] && @response["AllResults"][0]["Emotion"] && !@response["AllResults"][0]["Emotion"].empty?
+      # This is a gross hack of the Houndify "Emotion" property - they only support strings, so I've entered a comma-separated string, parsed to Hash, and parsed values to proper types
+      # Yuck...
+      emotion_hash = Hash[*@response["AllResults"][0]["Emotion"].split(',')]
+      emotion_hash["value"] = emotion_hash["value"].to_f
+      emotion_hash["start"] = emotion_hash["start"].to_i
+      emotion_hash["duration"] = emotion_hash["duration"].to_i
+      emotion_hash
+    else
+      {}
+    end
   end
 
   def houndify_conversation_state
@@ -199,18 +211,13 @@ class Houndify
       JSON.generate(data)
   end
 
-  def create_json_to_send(text, html)
+  def create_json_to_send(text, html, expression)
       answer_body = {
           "answer": text,
           "instructions": {
-              # "expressionEvent": [
-              #     {
-              #         "expression": "headPitch", # string, a supported expression in lowerCamelCase
-              #         "value": 0.5, # number, intensity. Range varies depending on the expression
-              #         "start": 2 # number, in seconds from start of the utterance
-              #         "duration": 5 # number, duration in seconds this expression 
-              #     }
-              # ],
+              "expressionEvent": [
+                expression
+              ],
               "emotionalTone": [
                   {
                       "tone": "happiness", # desired emotion in lowerCamelCase
