@@ -23,7 +23,7 @@ Ruby on Rails
 
 This application requires:
 
-- Ruby 2.3.7
+- Ruby 2.4.6p354 (2019-04-01 revision 67394) (but honestly it should work on most versions of Ruby supported by Rails 5 - I've only tested using the version indicated)
 - Rails 5.2.3
 
 Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.html).
