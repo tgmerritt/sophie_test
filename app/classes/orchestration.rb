@@ -10,10 +10,6 @@ class Orchestration
     end
 
     def orchestrate
-        determine_partner
-    end
-
-    def determine_partner
         case @partner
         when "Houndify"
             Houndify.new.query_houndify(@location, @conversation_state, @query)
