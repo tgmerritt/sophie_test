@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+  source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.4.6'
 gem 'rails', '~> 5.2.3'
@@ -21,6 +21,8 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'pry', '~> 0.12.2'
+  gem 'ruby-debug-ide'
+  gem 'debase'
 end
 group :test do
   gem 'capybara', '>= 2.15'
