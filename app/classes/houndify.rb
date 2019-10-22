@@ -162,9 +162,10 @@ class Houndify
     if html.nil?
         combined_html = nil
     else
-        css = html_assets["CSS"].gsub(/\"/, '\'')
+        # css = html_assets["CSS"].gsub(/\"/, '\'')
         js = html_assets["JS"].gsub(/\"/, '\'')
-        combined_html = css + js + html
+        # combined_html = css + js + html
+        combined_html = js + html
         combined_html.gsub!(/[\r\n]+/, ' ')
     end
   end
