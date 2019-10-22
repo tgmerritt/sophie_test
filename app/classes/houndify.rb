@@ -162,11 +162,15 @@ class Houndify
     if html.nil?
         combined_html = nil
     else
-        # css = html_assets["CSS"].gsub(/\"/, '\'')
-        js = html_assets["JS"].gsub(/\"/, '\'')
-        # combined_html = css + js + html
-        combined_html = js + html
-        combined_html.gsub!(/[\r\n]+/, ' ')
+        if html_assets
+          # css = html_assets["CSS"].gsub(/\"/, '\'')
+          js = html_assets["JS"].gsub(/\"/, '\'')
+          # combined_html = css + js + html
+          combined_html = js + html          
+          combined_html.gsub!(/[\r\n]+/, ' ')
+        else
+          combined_html = html
+        end        
     end
   end
 
@@ -179,7 +183,14 @@ class Houndify
   end
 
   def houndify_html
-      if @response["AllResults"][0]["HTMLData"] && @response["AllResults"][0]["HTMLData"]["SmallScreenHTML"]
+    if @response["AllResults"][0]["CommandKind"] && @response["AllResults"][0]["CommandKind"] == "MapCommand"
+      data = @response["AllResults"][0]
+      origin_lat = data["NativeData"]["StartMapLocationSpec"]["Latitude"]
+      origin_lng = data["NativeData"]["StartMapLocationSpec"]["Longitude"]
+      dest_lat = data["NativeData"]["DestinationMapLocationSpec"]["Latitude"]
+      dest_lng = data["NativeData"]["DestinationMapLocationSpec"]["Longitude"]
+      "<iframe height=\"600\" width=\"100%\" border=\"0\" marginwidth=\"0\" marginheight=\"0\" src=\"https://www.mapquest.com/embed/directions/from/near-#{origin_lat},#{origin_lng}/to/near-#{dest_lat},#{dest_lng}?center=#{origin_lat},#{origin_lng}&zoom=12&maptype=map\"></iframe>"
+  elsif @response["AllResults"][0]["HTMLData"] && @response["AllResults"][0]["HTMLData"]["SmallScreenHTML"]
           @response["AllResults"][0]["HTMLData"]["SmallScreenHTML"]
       else
           nil
