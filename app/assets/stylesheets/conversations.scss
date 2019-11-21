@@ -136,6 +136,7 @@ dy {
     color: white;
     font-weight: 300;
     display: none;
+    z-index: 100; // The injectHTML div overlays this input preventing us from clicking into the field
 }
 
 #askInput::placeholder {

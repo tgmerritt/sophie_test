@@ -195,7 +195,7 @@ window.onload = function () {
                 console.log('AvatarAnswer');
                 break;
             default:
-                console.log('FaceMe: Unhandled message \'' + msg.faceMeMessageType + '\'');
+                console.log('UneeQ: Unhandled message \'' + msg.faceMeMessageType + '\'');
                 break;
         }
     });
@@ -237,7 +237,7 @@ function setHarkerState(enabled) {
 
 function askKeyPress(e) {
     if (e.key === 'Enter' && fm.ready.value === true) {
-        console.log("Sending transcript to FaceMe: " + document.getElementById('askInput').value);
+        console.log("Sending transcript to UneeQ: " + document.getElementById('askInput').value);
         fm.sendTranscript(document.getElementById('askInput').value);
         document.getElementById('askInput').value = '';
     }
