@@ -40,9 +40,13 @@ Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.
 ## Getting Started
 
 `git clone`
+
 `cd sophie_test`
+
 `bundle`
+
 `rake db:create db:migrate` <== the database only holds the one-time key after initial authentication
+
 `rails s`
 
 ## Documentation and Support
