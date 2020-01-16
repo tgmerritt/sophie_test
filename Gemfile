@@ -43,6 +43,7 @@ group :development do
   gem 'hub', :require=>nil
   gem 'rails_layout'
   gem 'spring-commands-rspec'
+  gem 'rubocop'
 end
 group :development, :test do
   gem 'factory_bot_rails'

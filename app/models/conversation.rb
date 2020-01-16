@@ -15,6 +15,15 @@ class Conversation < ApplicationRecord
         Conversation.create(token: response["token"])
     end
 
+    def update_session(params)
+        session = JSON.parse(params["fm-avatar"])
+        self.update(session_id: params["sid"], avatar_session_id: session["avatarSessionId"]) if null_session?
+    end
+
+    def null_session?
+        return true if self.avatar_session_id.nil? || self.session_id.nil?
+    end
+
     def create_location_obj(params)
         {latitude: params[:latitude], longitude: params[:longitude]}
     end

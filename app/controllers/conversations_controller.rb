@@ -16,8 +16,8 @@ class ConversationsController < ApplicationController
   def create
     # Change the second parameter to another NLP provider in order to query against that provider
     # You could also implement a custom cascading check against multiple NLP providers.
-    orchestration = Orchestration.new(params, "Houndify")
-    response = orchestration.orchestrate
+    Conversation.first.update_session(params)
+    response = Orchestration.new(params, "Houndify").orchestrate
     render json: response
   end
 end

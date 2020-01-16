@@ -338,6 +338,12 @@ body {
     user-select: none;
 }
 
+a {
+    font-size: 100%;
+    font-family: sans-serif;
+    color: #999 !important;
+}
+
 a:focus {
     outline: dotted thin
 }

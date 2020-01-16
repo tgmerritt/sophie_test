@@ -1,0 +1,2 @@
+module SpeaksHelper
+end
