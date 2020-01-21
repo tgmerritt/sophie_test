@@ -8,13 +8,14 @@
     min-height: 100vh;
     place-items: center;
     background: linear-gradient(135deg, hsl(180, 70%, 50%), hsl(200, 75%, 25%));
-    justify-items: stretch
+    justify-content: initial !important;
 }
 
 .uneeq_logo {
     width: 50%;
-    margin: 24px auto;
+    margin: 12px auto;
     max-width: 200px;
+    vertical-align: text-top;
 }
 
 input,
@@ -58,6 +59,7 @@ form {
 input {
     flex-grow: 1;
     padding: 0.5em 0.75em;
+    line-height: 2em;
 }
 
 button {

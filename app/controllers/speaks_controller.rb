@@ -24,19 +24,7 @@ class SpeaksController < ApplicationController
   # POST /speaks
   # POST /speaks.json
   def create
-
-    
-    # @speak = Speak.new(speak_params)
-
-    # respond_to do |format|
-    #   if @speak.save
-    #     format.html { redirect_to @speak, notice: 'Speak was successfully created.' }
-    #     format.json { render :show, status: :created, location: @speak }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @speak.errors, status: :unprocessable_entity }
-    #   end
-    # end
+    Speak.new(params).send_unsolicited_response
   end
 
   # PATCH/PUT /speaks/1
