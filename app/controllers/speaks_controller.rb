@@ -25,6 +25,7 @@ class SpeaksController < ApplicationController
   # POST /speaks.json
   def create
     Speak.new(params).send_unsolicited_response
+    render :index
   end
 
   # PATCH/PUT /speaks/1
