@@ -1,3 +1,6 @@
+<%= stylesheet_link_tag params[:controller] %>
+<%= stylesheet_link_tag 'scaffolds' %>
+<%= javascript_include_tag params[:controller] %>
 <div id="msg" data-user-token="<%= @token %>" data-api-key="<%= @api_key %>"></div>
 <div id="avatar-container"></div>
 <div id="transcript"></div>
@@ -10,17 +13,17 @@
     <button id="resume-btn" style="display: none;" onclick="setPauseState(false)">Resume Session</button>
     <button id="harker-btn" onclick="setHarkerState(true)">Enable Harker</button>
     <button id="disable-harker-btn" style="display: none" onclick="setHarkerState(false)">Disable Harker</button>
-    <button onclick="fm.endSession()">End</button>
+    <button onclick="uneeq.endSession()">End</button>
 </div>
 <div id="settings">
     <h2>Settings</h2>
     <h4>Camera</h4>
     <div id="local-container"></div>
-    <select id="cameraSelect" onchange="fm.setCamera(this.value)"></select>
+    <select id="cameraSelect" onchange="uneeq.setCamera(this.value)"></select>
     <h4>Microphone</h4>
-    <select id="micSelect" onchange="fm.setMic(this.value)"></select>
+    <select id="micSelect" onchange="uneeq.setMic(this.value)"></select>
     <h4>Speaker</h4>
-    <select id="speakerSelect" onchange="fm.setSpeaker(this.value)"></select>
+    <select id="speakerSelect" onchange="uneeq.setSpeaker(this.value)"></select>
     <button onclick="hideSettings()">Done</button>
 </div>
 <div id="injectHTML"></div>

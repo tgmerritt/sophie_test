@@ -2721,19 +2721,6 @@ extsprintf@^1.2.0:
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
   integrity sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
 
-faceme-sdk@^2.24.0:
-  version "2.24.0"
-  resolved "https://registry.yarnpkg.com/faceme-sdk/-/faceme-sdk-2.24.0.tgz#731c74329587ea69fb47f336147bb7c032c39dc9"
-  integrity sha512-rKIxQcuuktCbWhmuIQcDrzzLdqSIt8YishdSXSmfDFxI4kP0CLlcU59Fsu40ar8ae9Xsp0ewRgDAIbI3Tjt40g==
-  dependencies:
-    "@stomp/stompjs" "^5.2.0"
-    fast-text-encoding "^1.0.0"
-    rxjs "^6.2.2"
-    rxjs-compat "^6.3.2"
-    simple-peer "9.1.2"
-    tslint-no-focused-test "^0.5.0"
-    webrtc-adapter "^7.2.0"
-
 fast-deep-equal@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-2.0.1.tgz#7b05218ddf9667bf7f370bf7fdb2cb15fdd0aa49"
@@ -7094,6 +7081,19 @@ typescript@^3.5.3:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.2.tgz#27e489b95fa5909445e9fef5ee48d81697ad18fb"
   integrity sha512-ml7V7JfiN2Xwvcer+XAf2csGO1bPBdRbFCkYBczNZggrBZ9c7G3riSUeJmqEU5uOtXNPMhE3n+R4FA/3YOAWOQ==
+
+uneeq-js@^2.28.0:
+  version "2.28.0"
+  resolved "https://registry.yarnpkg.com/uneeq-js/-/uneeq-js-2.28.0.tgz#fe847c57f25dad6e823f5fa9e043225931df0e34"
+  integrity sha512-9/DQ8uEdZm3xFUd+lgnRC2m7huYn+W8hbDuolrFTNm+x6bBxBd1GwtU0pUnoQKZyxsHNVodmDnGfQ+ieiaehNQ==
+  dependencies:
+    "@stomp/stompjs" "^5.2.0"
+    fast-text-encoding "^1.0.0"
+    rxjs "^6.2.2"
+    rxjs-compat "^6.3.2"
+    simple-peer "9.1.2"
+    tslint-no-focused-test "^0.5.0"
+    webrtc-adapter "^7.2.0"
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"

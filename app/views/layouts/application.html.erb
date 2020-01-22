@@ -5,9 +5,10 @@
     <title><%= content_for?(:title) ? yield(:title) : "Sophie Test" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Sophie Test" %>">
     <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= stylesheet_link_tag '1st_load_framework' %>
     <%= javascript_include_tag 'application' %>
-    <!-- reference the FaceMe SDK directly instead of using yarn / npm -->
-    <script src="//unpkg.com/faceme-sdk/dist/umd"></script>
+    <!-- reference the UneeQ SDK directly instead of using yarn / npm -->
+    <script src="//unpkg.com/uneeq-js/dist/umd"></script>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= csrf_meta_tags %>
   </head>
