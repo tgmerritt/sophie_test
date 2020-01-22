@@ -1,10 +1,11 @@
+<%= stylesheet_link_tag params[:controller] %>
 <div class="background">
     <div id="link_to_start" class="container">
         <div class="uneeq_logo">
             <%= image_tag "UneEQ-Logo-Stacked-Rev.png" %>
         </div>
         <h3> Make a digital human speak! </h1>
-        <p>Enter text in the field below and press the <i>speak</i> button to make a digital human talk.</p>
+        <p>Enter text in the field below and press the &nbsp;<i>speak</i>&nbsp; button to make a digital human talk.</p>
         <%= form_with url: speaks_path do |form| %>
           <%= form.text_field :text_to_speak, id: "text_to_speak" %>
           <%= form.submit "Speak!", id: "submit_btn" %>

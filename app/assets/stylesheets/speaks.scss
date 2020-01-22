@@ -3,17 +3,24 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .background {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: -webkit-box;
     display: flex;
-    grid-template-columns: 1fr minmax(auto, 30em) 1fr;
-    min-height: 100vh;
-    place-items: center;
-    background: linear-gradient(135deg, hsl(180, 70%, 50%), hsl(200, 75%, 25%));
-    justify-content: initial !important;
+    justify-content: initial;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    background: #232135;
+    color: white;
 }
 
 .uneeq_logo {
     width: 50%;
-    margin: 12px auto;
+    margin: 150px auto 25px; // top left-right bottom
     max-width: 200px;
     vertical-align: text-top;
 }
@@ -73,7 +80,7 @@ svg {
     height: auto;
 }
 
-h3 {
+h3, p {
     display: flex;
     align-items: center;
     justify-content: center;
