@@ -147,15 +147,14 @@ window.onload = function () {
             case 'AvatarAnswerText':
                 addAvatarTranscript(msg.answer);
                 break;
+            case 'AvatarTextInputFinished':
+                break;
             case 'AvatarUnavailable':
                 document.getElementById('msg').innerHTML = 'Avatar Unavailable. Session will begin when an avatar becomes available.';
                 break;
             case 'AvatarAvailable':
                 document.body.classList.add('live');
                 document.getElementById('msg').innerHTML = 'Loading...';
-                break;
-            case 'AvatarAnswerContent':
-                document.getElementById('injectHTML').innerHTML = msg.content;
                 break;
             case 'DeviceListUpdated':
                 devices = msg.devices;
@@ -192,6 +191,10 @@ window.onload = function () {
                 console.log('RecordingStopped');
                 break;
             case 'AvatarAnswer':
+                var html = JSON.parse(msg.answerAvatar)
+                if (html) {
+                    document.getElementById('injectHTML').innerHTML = html.instructions.displayHtml.html;
+                }
                 console.log('AvatarAnswer');
                 break;
             default:
