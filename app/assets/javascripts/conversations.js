@@ -192,7 +192,7 @@ window.onload = function () {
                 break;
             case 'AvatarAnswer':
                 var html = JSON.parse(msg.answerAvatar)
-                if (html) {
+                if (html && html.instructions && html.instructions.displayHtml) {
                     document.getElementById('injectHTML').innerHTML = html.instructions.displayHtml.html;
                 }
                 console.log('AvatarAnswer');
