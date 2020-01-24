@@ -6,7 +6,6 @@ window.onload = function () {
     let selectedSpeaker = null;
     let speechEvents = null;
     var token = document.getElementById('msg').dataset.userToken;
-    var apiKey = document.getElementById('msg').dataset.apiKey;
 
     const fm = new FaceMe({
         url: 'https://dal-admin.faceme.com',
@@ -14,7 +13,6 @@ window.onload = function () {
         avatarVideoContainerElement: document.getElementById('avatar-container'),
         localVideoContainerElement: document.getElementById('local-container'),
         customData: {},
-        apiKey: apiKey,
         logging: true
     });
 
