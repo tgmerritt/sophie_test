@@ -324,7 +324,7 @@ DEPENDENCIES
   rubyzip (>= 1.3.0)
   sass-rails (~> 5.0)
   selenium-webdriver
-  sinatra
+  sinatra (>= 2.0)
   spring
   spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)
