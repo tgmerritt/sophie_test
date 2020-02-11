@@ -52,10 +52,11 @@ test:
 
 production:
   adapter:  postgresql
-  host:     localhost
+  host:     <%= ENV["DB_HOST"] %>
   encoding: unicode
-  database: sophie_test_production
+  database: <%= ENV["DB_NAME"] %>
   pool:     5
-  username: sophie_test
-  password:
+  port: <%= ENV["DB_PORT"] %>
+  username: <%= ENV["DB_USERNAME"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
   template: template0
