@@ -91,6 +91,7 @@ yarn-debug.log*
 .yarn-integrity
 .vscode/
 config/ssl
+tsconfig.json
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
