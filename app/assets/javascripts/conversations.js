@@ -8,7 +8,7 @@ window.onload = function () {
     var token = document.getElementById('msg').dataset.userToken;
 
     const fm = new FaceMe({
-        url: 'https://dal-admin.faceme.com',
+        url: 'https://api.us.uneeq.io',
         conversationId: '9c7dafd7-2d90-49aa-b66a-2dfc394865e1', // This conversation ID is for local debugging only
         avatarVideoContainerElement: document.getElementById('avatar-container'),
         localVideoContainerElement: document.getElementById('local-container'),
