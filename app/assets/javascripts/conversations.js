@@ -7,7 +7,7 @@ window.onload = function () {
     let speechEvents = null;
     var token = document.getElementById('msg').dataset.userToken;
 
-    const fm = new FaceMe({
+    const uneeq = new Uneeq({
         url: 'https://api.us.uneeq.io',
         conversationId: '9c7dafd7-2d90-49aa-b66a-2dfc394865e1', // This conversation ID is for local debugging only
         avatarVideoContainerElement: document.getElementById('avatar-container'),
@@ -16,9 +16,9 @@ window.onload = function () {
         logging: true
     });
 
-    fm.initWithToken(token);
+    uneeq.initWithToken(token);
 
-    window.fm = fm;
+    window.uneeq = uneeq;
 
     function switchText() {
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -53,12 +53,12 @@ window.onload = function () {
 
     function pressingDown() {
         addActivePrompt();
-        fm.startRecording();
+        uneeq.startRecording();
     }
 
     function notPressingDown() {
         addNonActivePrompt();
-        fm.stopRecording();
+        uneeq.stopRecording();
     }
 
     function addAvatarTranscript(msg) {
@@ -114,7 +114,7 @@ window.onload = function () {
         document.addEventListener('keydown', (e) => {
             if (e.code === 'Space' && !e.repeat && e.target.type !== 'text') {
                 addActivePrompt()
-                fm.startRecording();
+                uneeq.startRecording();
             }
         });
 
@@ -122,7 +122,7 @@ window.onload = function () {
         document.addEventListener('keyup', (e) => {
             if (e.code === 'Space' && !e.repeat && e.target.type !== 'text') {
                 addNonActivePrompt();
-                fm.stopRecording();
+                uneeq.stopRecording();
             }
         });
 
@@ -134,8 +134,8 @@ window.onload = function () {
     }
 
     // Subscribe to UneeQ messages from the API, various response types, and trigger on certain actions
-    fm.messages.subscribe((msg) => {
-        switch (msg.faceMeMessageType) {
+    uneeq.messages.subscribe((msg) => {
+        switch (msg.uneeqMessageType) {
             case 'Ready':
                 fmReadyHandler();
                 break;
@@ -153,6 +153,8 @@ window.onload = function () {
             case 'AvatarAvailable':
                 document.body.classList.add('live');
                 document.getElementById('msg').innerHTML = 'Loading...';
+                break;
+            case 'DevicePermissionAllowed':
                 break;
             case 'DeviceListUpdated':
                 devices = msg.devices;
@@ -217,14 +219,14 @@ function setHarkerState(enabled) {
             document.getElementById('prompt').removeAttribute('class', 'prompt');
             document.getElementById('prompt').innerHTML = "Listening...";
             document.getElementById('prompt').setAttribute('class', 'prompt-active');
-            fm.startRecording();
+            uneeq.startRecording();
         });
         window.speechEvents.on('stopped_speaking', function () {
             console.log("Registering Harker Speech Event: stopped speaking");
             document.getElementById('prompt').removeAttribute('class', 'prompt-active');
             document.getElementById('prompt').innerHTML = "Hold <b>space</b> to speak.";
             document.getElementById('prompt').setAttribute('class', 'prompt');
-            fm.stopRecording();
+            uneeq.stopRecording();
         });
         document.getElementById('harker-btn').style.display = 'none';
         document.getElementById('disable-harker-btn').style.display = 'block';
@@ -237,9 +239,9 @@ function setHarkerState(enabled) {
 }
 
 function askKeyPress(e) {
-    if (e.key === 'Enter' && fm.ready.value === true) {
+    if (e.key === 'Enter' && uneeq.ready.value === true) {
         console.log("Sending transcript to UneeQ: " + document.getElementById('askInput').value);
-        fm.sendTranscript(document.getElementById('askInput').value);
+        uneeq.sendTranscript(document.getElementById('askInput').value);
         document.getElementById('askInput').value = '';
     }
 }
@@ -255,11 +257,11 @@ function hideSettings() {
 
 function setPauseState(paused) {
     if (paused) {
-        fm.pauseSession();
+        uneeq.pauseSession();
         document.getElementById('pause-btn').style.display = 'none';
         document.getElementById('resume-btn').style.display = 'block';
     } else {
-        fm.resumeSession();
+        uneeq.resumeSession();
         document.getElementById('pause-btn').style.display = 'block';
         document.getElementById('resume-btn').style.display = 'none';
     }
