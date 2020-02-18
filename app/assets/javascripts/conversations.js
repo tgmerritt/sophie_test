@@ -184,6 +184,9 @@ window.onload = function () {
             case 'SessionResumed':
                 console.log("SessionResumed");
                 break;
+            case 'ServiceUnavailable':
+                console.log('ServiceUnavailable');
+                break;
             case 'RecordingStarted':
                 console.log('RecordingStarted');
                 break;
