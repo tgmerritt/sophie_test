@@ -8,8 +8,7 @@
     <%= stylesheet_link_tag '1st_load_framework' %>
     <!-- reference the UneeQ SDK directly instead of using yarn / npm -->
     <script src="//unpkg.com/uneeq-js/dist/umd"></script>
-    <%= javascript_include_tag 'application' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= csrf_meta_tags %>
   </head>
   <body style="margin:0">

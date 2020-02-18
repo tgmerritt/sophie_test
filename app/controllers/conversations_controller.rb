@@ -15,8 +15,9 @@ class ConversationsController < ApplicationController
   def create
     # Change the second parameter to another NLP provider in order to query against that provider
     # You could also implement a custom cascading check against multiple NLP providers.
+    # params[:nlp] value needs to be set by UneeQ in the 3rd Party config under the workspace
     Conversation.first.update_session(params)
-    response = Orchestration.new(params, "Houndify").orchestrate
+    response = Orchestration.new(params, params[:nlp]).orchestrate
     render json: response
   end
 end
