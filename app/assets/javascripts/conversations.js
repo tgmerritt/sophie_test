@@ -9,7 +9,7 @@ window.onload = function () {
 
     const uneeq = new Uneeq({
         url: 'https://api.us.uneeq.io',
-        conversationId: '1507ece5-dafd-49fd-8b8b-699f40836f43',
+        conversationId: '21a5960e-f208-43fd-a8c2-20238ca99d49',
         // conversationId: '618ac47d-7e60-413e-9381-0e4671e6f572', // This conversation ID is for local debugging only
         avatarVideoContainerElement: document.getElementById('avatar-container'),
         localVideoContainerElement: document.getElementById('local-container'),
