@@ -5,7 +5,7 @@ class Conversation < ApplicationRecord
   include HTTParty
 
   def authenticate_to_faceme(params)
-    response = HTTParty.post("https://#{Rails.application.secrets.default_hostname}/api/v1/clients/access/tokens",
+    response = HTTParty.post("#{Rails.application.secrets.default_hostname}/api/v1/clients/access/tokens",
                              headers: { "Content-Type": 'application/jwt', "workspace": Rails.application.secrets.workspace_id },
                              body: encode_payload(params).to_s)
     # puts response.body, response.code, response.message, response.headers.inspect
