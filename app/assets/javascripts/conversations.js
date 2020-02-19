@@ -8,7 +8,7 @@ window.onload = function () {
     var token = document.getElementById('msg').dataset.userToken;
 
     const uneeq = new Uneeq({
-        url: 'https://api.us.uneeq.io',
+        url: 'https://api.au.uneeq.io',
         conversationId: '21a5960e-f208-43fd-a8c2-20238ca99d49',
         // conversationId: '618ac47d-7e60-413e-9381-0e4671e6f572', // This conversation ID is for local debugging only
         avatarVideoContainerElement: document.getElementById('avatar-container'),
