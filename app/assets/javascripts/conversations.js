@@ -8,13 +8,14 @@ window.onload = function () {
     var token = document.getElementById('msg').dataset.userToken;
 
     const uneeq = new Uneeq({
-        url: 'https://api.au.uneeq.io',
-        conversationId: '21a5960e-f208-43fd-a8c2-20238ca99d49',
+        url: 'https://api.us.uneeq.io',
+        conversationId: '9c7dafd7-2d90-49aa-b66a-2dfc394865e1',
         // conversationId: '618ac47d-7e60-413e-9381-0e4671e6f572', // This conversation ID is for local debugging only
         avatarVideoContainerElement: document.getElementById('avatar-container'),
-        localVideoContainerElement: document.getElementById('local-container'),
+        // localVideoContainerElement: document.getElementById('local-container'), // sendLocalVideo: false makes this irrelevant
         customData: {},
-        logging: true
+        logging: true,
+        sendLocalVideo: false
     });
 
     uneeq.initWithToken(token);
@@ -78,16 +79,17 @@ window.onload = function () {
             option.value = device.deviceId;
             selectElem.appendChild(option);
         };
-        if (devices && devices.videoInput) {
-            // Set a default camera if there isn't one
-            if (selectedCam === null && devices.videoInput.length > 0) {
-                selectedCam = devices.videoInput[0].deviceId;
-            }
-            const selectElem = document.getElementById('cameraSelect');
-            selectElem.innerHTML = '';
-            devices.videoInput.forEach((cam) => addOptionToSelect(cam, selectElem));
-            selectElem.value = selectedCam;
-        }
+        // No longer necessary if we aren't using video
+        // if (devices && devices.videoInput) {
+        //     // Set a default camera if there isn't one
+        //     if (selectedCam === null && devices.videoInput.length > 0) {
+        //         selectedCam = devices.videoInput[0].deviceId;
+        //     }
+        //     const selectElem = document.getElementById('cameraSelect');
+        //     selectElem.innerHTML = '';
+        //     devices.videoInput.forEach((cam) => addOptionToSelect(cam, selectElem));
+        //     selectElem.value = selectedCam;
+        // }
         if (devices && devices.audioInput) {
             // Set a default microphone if there isn't one
             if (selectedMic === null && devices.audioInput.length > 0) {
