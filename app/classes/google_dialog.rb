@@ -150,6 +150,3 @@ end
 
 # jp train reservation demo start
 
-# https://digital-human-us-assets.s3.us-east-2.amazonaws.com/bg-concept1.png
-# file:///${PROJECT_DIR}/backgrounds/downloaded-background.jpg
-
