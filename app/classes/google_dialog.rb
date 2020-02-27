@@ -48,7 +48,6 @@ class GoogleDialog
     if n.search('say-as').any?
       n.search('say-as').each do |e|
         if e.get_attribute('interpret-as') == "date"
-          d = e.content
           e.content = Date.parse(e.content).strftime('%Y-%m-%d')
         elsif e.get_attribute('interpret-as') == "time"
           e.content = Time.parse(e.content).strftime("%H:%M")
