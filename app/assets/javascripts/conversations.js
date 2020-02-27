@@ -148,6 +148,12 @@ window.onload = function () {
             case 'AvatarAnswerText':
                 addAvatarTranscript(msg.answer);
                 break;
+            case 'AvatarAnswerContent':
+                this.console.log("Got AvatarAnswerContent msg");
+                if(msg.content !== '') {
+                    addAvatarTranscript(msg.content);
+                }
+                break;
             case 'AvatarTextInputFinished':
                 break;
             case 'AvatarUnavailable':
@@ -178,6 +184,10 @@ window.onload = function () {
             case 'SessionError':
                 console.log("SessionError: " + msg.error);
                 break;
+            case 'SessionLive':
+                this.console.log("Session Live - sending initial transcript to trigger demo");
+                uneeq.sendTranscript("jp train reservation demo start");
+                break;
             case 'ErrorEndingSession':
                 console.error(msg.error);
                 break;
@@ -202,6 +212,12 @@ window.onload = function () {
                     document.getElementById('injectHTML').innerHTML = html.instructions.displayHtml.html;
                 }
                 console.log('AvatarAnswer');
+                break;
+            case 'ClientMediaStreamUpdate':
+                this.console.log(msg);
+                break;
+            case 'Warning':
+                console.log(msg.msg);
                 break;
             default:
                 console.log('UneeQ: Unhandled message \'' + msg.faceMeMessageType + '\'');
