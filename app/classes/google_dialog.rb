@@ -93,7 +93,6 @@ class GoogleDialog
   def set_matched_context(res)
     context = []
     context = res["outputContexts"].map { |x| x["name"] } if res["outputContexts"].is_a?(Array)
-    context
   end
 
   # If there is any payload information, store it in the response
