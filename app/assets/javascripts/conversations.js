@@ -187,7 +187,10 @@ window.onload = function () {
                 break;
             case 'SessionLive':
                 this.console.log("Session Live - sending initial transcript to trigger demo");
-                uneeq.sendTranscript("jp train reservation demo start");
+                // For JP Dialogflow conversation, send start intent
+                if (this.uneeq.options.conversationId === '1507ece5-dafd-49fd-8b8b-699f40836f43') {
+                    uneeq.sendTranscript("jp train reservation demo start");
+                }
                 break;
             case 'ErrorEndingSession':
                 console.error(msg.error);
