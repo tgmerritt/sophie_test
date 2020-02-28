@@ -72,20 +72,19 @@ class GoogleDialog
     JSON.parse(response.query_result.to_json)
   end
 
-  # Check if we have an expressionEvent in the payload, add it to instructions
-  def generate_expression(res, instructions)
-    # JSON may be faster than accessing the Ruby object
-    if res['parameters']['expressionEvent']
-      instructions['expressionEvent'] = JSON.parse(res['parameters']['expressionEvent'])
-    end
-    instructions
+  def generate_html(res)
+      {"html" => res['parameters']['displayHtml']}
   end
 
-  # Check if we have an emotionalEvent in the payload, add it to instructions
-  def generate_emotion(res, instructions)
-    if res['parameters']['emotionalTone']
-      instructions['emotionalTone'] = JSON.parse(res['parameters']['emotionalTone'])
-    end
+  def generate_event(res, type)
+    JSON.parse(res['parameters']["#{type}"])
+  end
+
+  def setup_instructions(res)
+    instructions = {}
+    instructions['emotionalTone'] = generate_event(res, 'emotionalTone') if res['parameters']['emotionalTone']
+    instructions['expressionEvent'] = generate_event(res, 'expressionEvent') if res['parameters']['expressionEvent']
+    instructions['displayHtml'] = generate_html(res) if res['parameters']['displayHtml']
     instructions
   end
 
@@ -103,11 +102,6 @@ class GoogleDialog
 
   def generate_json_string(data)
     JSON.generate(data)
-  end
-
-  def setup_instructions(res)
-    instructions = generate_expression(res, {})
-    instructions = generate_emotion(res, instructions)
   end
 
   def create_json_to_send(text)
@@ -141,10 +135,7 @@ class GoogleDialog
       # "conversationPayload": "#{set_conversation_payload(@res)}"
       "conversationPayload": ""
     }
-    puts body
     body
   end
 end
-
-# jp train reservation demo start
 

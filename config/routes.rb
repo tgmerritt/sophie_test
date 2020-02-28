@@ -3,5 +3,6 @@ Rails.application.routes.draw do
   resources :hounds
   resources :conversations
   resources :fmauths
+  resources :webhooks, only: :create
   root to: 'visitors#index'
 end

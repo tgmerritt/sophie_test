@@ -17,6 +17,16 @@ RSpec.describe GoogleDialog do
         expect(res[:conversationPayload]).to eq ({"pets"=>"猫"})
     end
 
+    it "builds instructions with html" do
+        allow(@gd).to receive(:send_query_to_dialogflow).with("blah") { jp_mock_with_html }
+        res = @gd.query_dialogflow
+        answer = JSON.parse(res[:answer])
+        expect(answer["answer"]).to eq "承知致しました。席の空き状況はこちらです。ご希望の席をおっしゃって下さい。"
+        expect(answer["instructions"]["displayHtml"]).to eq ({"html"=>"<img src=\"assets/reserve_seat_list_select.png\" style=\"margin-top: 3.5em;max-width: 300px;margin-right: 6em;\" />"})
+        expect(answer["instructions"]["expressionEvent"]).to eq [{"expression"=>"smile", "start"=>1, "value"=>1, "duration"=>10}]
+        expect(answer["instructions"]["emotionalTone"]).to eq [{"tone"=>"sadness", "start"=>0.1, "value"=>1, "additive"=>false, "duration"=>10}]
+    end
+
     it "transforms date and time from ISO-8601" do 
         allow(@gd).to receive(:send_query_to_dialogflow).with("blah") { mock_res }
         res = @gd.parse_fulfillment_text(jp_mock_with_date_and_time)
@@ -36,6 +46,149 @@ RSpec.describe GoogleDialog do
 
     def jp_mock_without_date_and_time
         "かしこまりました。2020-03-03T12:00:00-06:00の16:05:00でよろしいですね。空き状況を確認します。しばらくお待ち下さい。"
+    end
+
+    def jp_mock_with_html
+        {
+            "queryText"=> "はい",
+            "action"=> "jpdemoconversationdestination.jpdemoconversationdestination-yes",
+            "parameters"=> {
+              "displayHtml"=> "<img src=\"assets/reserve_seat_list_select.png\" style=\"margin-top: 3.5em;max-width: 300px;margin-right: 6em;\" />",
+              "emotionalTone"=> "[{\"tone\":\"sadness\",\"start\":0.1, \"value\":1,\"additive\":false,\"duration\":10}]",
+              "expressionEvent"=> "[{\"expression\":\"smile\",\"start\":1, \"value\":1,\"duration\":10}]"
+            },
+            "allRequiredParamsPresent"=> true,
+            "fulfillmentText"=> "承知致しました。席の空き状況はこちらです。ご希望の席をおっしゃって下さい。",
+            "fulfillmentMessages"=> [
+              {
+                "text"=> {
+                  "text"=> [
+                    "承知致しました。席の空き状況はこちらです。ご希望の席をおっしゃって下さい。"
+                  ]
+                }
+              }
+            ],
+            "outputContexts"=> [
+              {
+                "name"=> "projects/jpdemoconversation-kiohre/agent/sessions/806544e0-1d27-3cf2-377d-2222953ffd0e/contexts/jp-train-demo",
+                "lifespanCount"=> 5,
+                "parameters"=> {
+                  "date-period"=> "",
+                  "time-period.original"=> "",
+                  "date.original"=> "",
+                  "destination_station"=> "新大阪駅",
+                  "emotionalTone"=> "[{\"tone\":\"sadness\",\"start\":0.1, \"value\":1,\"additive\":false,\"duration\":10}]",
+                  "time"=> "2020-02-28T08:00:00-06:00",
+                  "date"=>"2021-02-12T12:00:00-06:00",
+                  "number"=>2,
+                  "time-period"=>"",
+                  "emotionalTone.original"=>"",
+                  "displayHtml.original"=>"",
+                  "destination_station.original"=>"大阪",
+                  "displayHtml"=>"<img src=\"assets/reserve_seat_list_select.png\" style=\"margin-top: 3.5em;max-width: 300px;margin-right: 6em;\" />",
+                  "date-period.original"=>"",
+                  "number.original"=>"２",
+                  "time.original"=>"",
+                  "originating_station.original"=>"",
+                  "people.original"=>"",
+                  "originating_station"=>"博多駅",
+                  "people"=>2
+                }
+              },
+              {
+                "name"=>"projects/jpdemoconversation-kiohre/agent/sessions/806544e0-1d27-3cf2-377d-2222953ffd0e/contexts/jpdemoconversationdestination-followup",
+                "lifespanCount"=>5,
+                "parameters"=>{
+                  "people.original"=>"",
+                  "originating_station.original"=>"",
+                  "originating_station"=>"博多駅",
+                  "people"=>2,
+                  "date.original"=>"",
+                  "destination_station"=>"新大阪駅",
+                  "time"=>"2020-02-28T08:00:00-06:00",
+                  "date"=>"2021-02-12T12:00:00-06:00",
+                  "displayHtml.original"=>"",
+                  "displayHtml"=>"<img src=\"assets/reserve_seat_list_select.png\" style=\"margin-top: 3.5em;max-width: 300px;margin-right: 6em;\" />",
+                  "destination_station.original"=>"大阪",
+                  "time.original"=>""
+                }
+              },
+              {
+                "name"=>"projects/jpdemoconversation-kiohre/agent/sessions/806544e0-1d27-3cf2-377d-2222953ffd0e/contexts/passengers_selected",
+                "lifespanCount"=>4,
+                "parameters"=>{
+                  "displayHtml.original"=>"",
+                  "destination_station.original"=>"大阪",
+                  "displayHtml"=>"<img src=\"assets/reserve_seat_list_select.png\" style=\"margin-top: 3.5em;max-width: 300px;margin-right: 6em;\" />",
+                  "number.original"=>"２",
+                  "time.original"=>"",
+                  "people.original"=>"",
+                  "originating_station.original"=>"",
+                  "originating_station"=>"博多駅",
+                  "people"=>2,
+                  "date.original"=>"",
+                  "destination_station"=>"新大阪駅",
+                  "time"=>"2020-02-28T08:00:00-06:00",
+                  "date"=>"2021-02-12T12:00:00-06:00",
+                  "number"=>2
+                }
+              },
+              {
+                "name"=>"projects/jpdemoconversation-kiohre/agent/sessions/806544e0-1d27-3cf2-377d-2222953ffd0e/contexts/date_and_time_selected",
+                "lifespanCount"=>4,
+                "parameters"=>{
+                  "originating_station.original"=>"",
+                  "people.original"=>"",
+                  "originating_station"=>"博多駅",
+                  "people"=>2,
+                  "date-period"=>"",
+                  "time-period.original"=>"",
+                  "date.original"=>"",
+                  "destination_station"=>"新大阪駅",
+                  "emotionalTone"=>"[{\"tone\":\"sadness\",\"start\":0.1, \"value\":1,\"additive\":false,\"duration\":10}]",
+                  "time"=>"2020-02-28T08:00:00-06:00",
+                  "date"=>"2021-02-12T12:00:00-06:00",
+                  "emotionalTone.original"=>"",
+                  "time-period"=>"",
+                  "number"=>2,
+                  "displayHtml.original"=>"",
+                  "destination_station.original"=>"大阪",
+                  "displayHtml"=>"<img src=\"assets/reserve_seat_list_select.png\" style=\"margin-top: 3.5em;max-width: 300px;margin-right: 6em;\" />",
+                  "date-period.original"=>"",
+                  "number.original"=>"２",
+                  "time.original"=>""
+                }
+              },
+              {
+                "name"=>"projects/jpdemoconversation-kiohre/agent/sessions/806544e0-1d27-3cf2-377d-2222953ffd0e/contexts/destination_selected",
+                "lifespanCount"=>1,
+                "parameters"=>{
+                  "date.original"=>"",
+                  "destination_station"=>"新大阪駅",
+                  "time"=>"2020-02-28T08:00:00-06:00",
+                  "date"=>"2021-02-12T12:00:00-06:00",
+                  "displayHtml.original"=>"",
+                  "displayHtml"=>"<img src=\"assets/reserve_seat_list_select.png\" style=\"margin-top: 3.5em;max-width: 300px;margin-right: 6em;\" />",
+                  "destination_station.original"=>"大阪",
+                  "time.original"=>"",
+                  "people.original"=>"",
+                  "originating_station.original"=>"",
+                  "people"=>2,
+                  "originating_station"=>"博多駅"
+                }
+              }
+            ],
+            "intent"=>{
+              "name"=>"projects/jpdemoconversation-kiohre/agent/intents/62f9eff4-5933-47f2-94a3-8012073ffc01",
+              "displayName"=>"jpdemo.conversation.destination - yes"
+            },
+            "intentDetectionConfidence"=>1,
+            "languageCode"=>"ja"
+          }
+    end
+
+    def jp_mock_for_weather
+        
     end
 end
 
