@@ -45,7 +45,7 @@ class GoogleDialog
 
   def parse_fulfillment_text(text)
     n = Nokogiri::HTML(text)
-    if n.search('say-as').any?
+    if n.search('speak').any?
       n.search('say-as').each do |e|
         if e.get_attribute('interpret-as') == "date"
           e.content = Date.parse(e.content).strftime('%Y-%m-%d')

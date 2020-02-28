@@ -69,6 +69,9 @@ window.onload = function () {
         newElement.classList.add('transcript-msg');
         newElement.innerHTML = msg;
         const transcript = document.getElementById('transcript');
+        // Clear any previously added transcript
+        transcript.innerText = '';
+        // Add the new transcript
         transcript.appendChild(newElement);
         transcript.scrollTop = transcript.scrollHeight;
     }
@@ -151,8 +154,10 @@ window.onload = function () {
                 break;
             case 'AvatarAnswerContent':
                 this.console.log("Got AvatarAnswerContent msg");
-                if(msg.content !== '') {
-                    addAvatarTranscript(msg.content);
+                if (this.uneeq.options.conversationId === '1507ece5-dafd-49fd-8b8b-699f40836f43') {
+                    if (msg.content !== '') {
+                        addAvatarTranscript(msg.content);
+                    }
                 }
                 break;
             case 'AvatarTextInputFinished':
@@ -213,7 +218,7 @@ window.onload = function () {
             case 'AvatarAnswer':
                 var html = JSON.parse(msg.answerAvatar)
                 if (html && html.instructions && html.instructions.displayHtml) {
-                    document.getElementById('injectHTML').innerHTML = html.instructions.displayHtml.html;
+                    addAvatarTranscript(html.instructions.displayHtml.html)
                 }
                 console.log('AvatarAnswer');
                 break;
