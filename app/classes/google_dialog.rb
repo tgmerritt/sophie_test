@@ -90,8 +90,12 @@ class GoogleDialog
 
   # If there is any context information, store it in the response
   def set_matched_context(res)
-    context = []
     context = res["outputContexts"].map { |x| x["name"] } if res["outputContexts"].is_a?(Array)
+    # Dump the unnecessary projects/newagent-gjetnk/agent/sessions/avatarSessionId/contexts/ stuff
+    context.map! { |c| c.split(".").last }
+    # Dump anything that isn't the right kind of context, mega, system counters, etc.
+    context.reject! { |e| e.include?("projects/newagent-gjetnk/agent/sessions/avatarSessionId/contexts/") }
+    context
   end
 
   # If there is any payload information, store it in the response
@@ -132,8 +136,8 @@ class GoogleDialog
       "answer": generate_json_string(answer_body),
       # "matchedContext": "#{set_matched_context(@res)}",
       "matchedContext": "",
-      # "conversationPayload": "#{set_conversation_payload(@res)}"
-      "conversationPayload": ""
+      "conversationPayload": "{context: #{set_matched_context(@res)}, parameters: #{set_conversation_payload(@res)}}"
+      # "conversationPayload": ""
     }
     body
   end
