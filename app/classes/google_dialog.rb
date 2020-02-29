@@ -24,6 +24,7 @@
 # end
 
 # require "google/cloud/dialogflow"
+# require 'benchmark'
 
 class GoogleDialog
   attr_accessor :state, :query, :session_id, :session_client, :project_id, :language_code
@@ -44,18 +45,21 @@ class GoogleDialog
   end
 
   def parse_fulfillment_text(text)
-    n = Nokogiri::HTML(text)
-    if n.search('speak').any?
+    #<Benchmark::Tms:0x00007fcbd687c1d0 @label="for Nokogiri:", @real=54.961159999947995, @cstime=0.0, @cutime=0.0, @stime=0.04752600000000001, @utime=54.903189, @total=54.950714999999995>
+    #<Benchmark::Tms:0x00007fcbd68bf3b8 @label="for String.include?:", @real=0.13650100002996624, @cstime=0.0, @cutime=0.0, @stime=4.999999999999449e-05, @utime=0.13644500000000903, @total=0.13649500000000903>
+    # It is safe to say that String.include? is like a billion times faster than Nokogiri, so we'll check for the presence of the tag before parsing
+    if text.include?('<speak>')
+      n = Nokogiri::HTML(text)
       n.search('say-as').each do |e|
-        if e.get_attribute('interpret-as') == "date"
+        if e.get_attribute('interpret-as') == 'date'
           e.content = Date.parse(e.content).strftime('%Y-%m-%d')
-        elsif e.get_attribute('interpret-as') == "time"
-          e.content = Time.parse(e.content).strftime("%H:%M")
+        elsif e.get_attribute('interpret-as') == 'time'
+          e.content = Time.parse(e.content).strftime('%H:%M')
         end
       end
-      return n.at('body').inner_html
+      n.at('body').inner_html
     else
-      return n.at('body').text
+      text
     end
   end
 
@@ -73,35 +77,43 @@ class GoogleDialog
   end
 
   def generate_html(res)
-      {"html" => res['parameters']['displayHtml']}
+    { 'html' => res['parameters']['displayHtml'] }
   end
 
   def generate_event(res, type)
-    JSON.parse(res['parameters']["#{type}"])
+    JSON.parse(res['parameters'][type.to_s])
   end
 
   def setup_instructions(res)
     instructions = {}
-    instructions['emotionalTone'] = generate_event(res, 'emotionalTone') if res['parameters']['emotionalTone']
-    instructions['expressionEvent'] = generate_event(res, 'expressionEvent') if res['parameters']['expressionEvent']
-    instructions['displayHtml'] = generate_html(res) if res['parameters']['displayHtml']
+    if res['parameters']['emotionalTone']
+      instructions['emotionalTone'] = generate_event(res, 'emotionalTone')
+    end
+    if res['parameters']['expressionEvent']
+      instructions['expressionEvent'] = generate_event(res, 'expressionEvent')
+    end
+    if res['parameters']['displayHtml']
+      instructions['displayHtml'] = generate_html(res)
+    end
     instructions
   end
 
   # If there is any context information, store it in the response
   def set_matched_context(res)
-    context = res["outputContexts"].map { |x| x["name"] } if res["outputContexts"].is_a?(Array)
+    if res['outputContexts'].is_a?(Array)
+      context = res['outputContexts'].map { |x| x['name'] }
+    end
     # Dump the unnecessary projects/newagent-gjetnk/agent/sessions/avatarSessionId/contexts/ stuff
-    context.map! { |c| c.split(".").last }
+    context.map! { |c| c.split('.').last }
     # Dump anything that isn't the right kind of context, mega, system counters, etc.
-    context.reject! { |e| e.include?("projects/newagent-gjetnk/agent/sessions/avatarSessionId/contexts/") }
+    context.reject! { |e| e.include?('projects/newagent-gjetnk/agent/sessions/avatarSessionId/contexts/') }
     context
   end
 
   # If there is any payload information, store it in the response
   def set_conversation_payload(res)
     payload = {}
-    payload = res["parameters"] if res["parameters"].is_a?(Hash)
+    payload = res['parameters'] if res['parameters'].is_a?(Hash)
   end
 
   def generate_json_string(data)
@@ -135,11 +147,10 @@ class GoogleDialog
     body = {
       "answer": generate_json_string(answer_body),
       # "matchedContext": "#{set_matched_context(@res)}",
-      "matchedContext": "",
+      "matchedContext": '',
       "conversationPayload": "{context: #{set_matched_context(@res)}, parameters: #{set_conversation_payload(@res)}}"
       # "conversationPayload": ""
     }
     body
   end
 end
-

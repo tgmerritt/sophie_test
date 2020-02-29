@@ -12,9 +12,9 @@ RSpec.describe GoogleDialog do
     it "adds parameters and context to the response" do
         allow(@gd).to receive(:send_query_to_dialogflow).with("blah") { mock_res }
         res = @gd.query_dialogflow
-        expect(res[:matchedContext]).to eq "[\"pet-chosen\"]"
+        expect(res[:matchedContext]).to eq ""
 
-        expect(res[:conversationPayload]).to eq ("{\"pets\"=>\"猫\"}")
+        expect(res[:conversationPayload]).to eq ("{context: [\"pet-chosen\"], parameters: {\"pets\"=>\"猫\"}}")
     end
 
     it "builds instructions with html" do
