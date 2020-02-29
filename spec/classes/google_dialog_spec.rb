@@ -34,6 +34,12 @@ RSpec.describe GoogleDialog do
 
         res = @gd.parse_fulfillment_text(jp_mock_without_date_and_time)
         expect(res).to eq "かしこまりました。2020-03-03T12:00:00-06:00の16:05:00でよろしいですね。空き状況を確認します。しばらくお待ち下さい。"
+        
+        res = @gd.parse_fulfillment_text(jp_mock_with_speak_but_no_say_as)
+        expect(res).to eq "<speak>かしこまりました。のでよろしいですね。空き状況を確認します。しばらくお待ち下さい。</speak>"
+    end
+
+    it "returns a <speak> string" do
     end
 
     def mock_res
@@ -46,6 +52,10 @@ RSpec.describe GoogleDialog do
 
     def jp_mock_without_date_and_time
         "かしこまりました。2020-03-03T12:00:00-06:00の16:05:00でよろしいですね。空き状況を確認します。しばらくお待ち下さい。"
+    end
+
+    def jp_mock_with_speak_but_no_say_as
+      "<speak>かしこまりました。のでよろしいですね。空き状況を確認します。しばらくお待ち下さい。</speak>"
     end
 
     def jp_mock_with_html

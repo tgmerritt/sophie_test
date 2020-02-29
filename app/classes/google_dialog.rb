@@ -49,16 +49,22 @@ class GoogleDialog
     #<Benchmark::Tms:0x00007fcbd68bf3b8 @label="for String.include?:", @real=0.13650100002996624, @cstime=0.0, @cutime=0.0, @stime=4.999999999999449e-05, @utime=0.13644500000000903, @total=0.13649500000000903>
     # It is safe to say that String.include? is like a billion times faster than Nokogiri, so we'll check for the presence of the tag before parsing
     if text.include?('<speak>')
+      # We have a <speak> tag so we'll need Nokogiri
       n = Nokogiri::HTML(text)
-      n.search('say-as').each do |e|
-        if e.get_attribute('interpret-as') == 'date'
-          e.content = Date.parse(e.content).strftime('%Y-%m-%d')
-        elsif e.get_attribute('interpret-as') == 'time'
-          e.content = Time.parse(e.content).strftime('%H:%M')
+      # But Nokogiri search is heavy, if we don't need to parse DateTime, skip this by checking for interpret-as attribute using String's .include? method
+      if text.include?('interpret-as')
+        n.search('say-as').each do |e|
+          if e.get_attribute('interpret-as') == 'date'
+            e.content = Date.parse(e.content).strftime('%Y-%m-%d')
+          elsif e.get_attribute('interpret-as') == 'time'
+            e.content = Time.parse(e.content).strftime('%H:%M')
+          end
         end
       end
+      # Return the <speak> formatted string to UneeQ
       n.at('body').inner_html
     else
+      # We didn't have any <speak> tags, so just return the string as-is
       text
     end
   end
