@@ -45,8 +45,8 @@ class GoogleDialog
   end
 
   def parse_fulfillment_text(text)
-    #<Benchmark::Tms:0x00007fcbd687c1d0 @label="for Nokogiri:", @real=54.961159999947995, @cstime=0.0, @cutime=0.0, @stime=0.04752600000000001, @utime=54.903189, @total=54.950714999999995>
-    #<Benchmark::Tms:0x00007fcbd68bf3b8 @label="for String.include?:", @real=0.13650100002996624, @cstime=0.0, @cutime=0.0, @stime=4.999999999999449e-05, @utime=0.13644500000000903, @total=0.13649500000000903>
+    # <Benchmark::Tms:0x00007fcbd687c1d0 @label="for Nokogiri:", @real=54.961159999947995, @cstime=0.0, @cutime=0.0, @stime=0.04752600000000001, @utime=54.903189, @total=54.950714999999995>
+    # <Benchmark::Tms:0x00007fcbd68bf3b8 @label="for String.include?:", @real=0.13650100002996624, @cstime=0.0, @cutime=0.0, @stime=4.999999999999449e-05, @utime=0.13644500000000903, @total=0.13649500000000903>
     # It is safe to say that String.include? is like a billion times faster than Nokogiri, so we'll check for the presence of the tag before parsing
     if text.include?('<speak>')
       # We have a <speak> tag so we'll need Nokogiri
