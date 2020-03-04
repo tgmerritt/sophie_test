@@ -9,8 +9,8 @@ window.onload = function () {
 
     const uneeq = new Uneeq({
         url: 'https://api.us.uneeq.io',
-        conversationId: '1507ece5-dafd-49fd-8b8b-699f40836f43', // dialog-flow
-        // conversationId: '9c7dafd7-2d90-49aa-b66a-2dfc394865e1', // sophie-digital-human-test
+        // conversationId: '1507ece5-dafd-49fd-8b8b-699f40836f43', // dialog-flow
+        conversationId: '9c7dafd7-2d90-49aa-b66a-2dfc394865e1', // sophie-digital-human-test
         // conversationId: '618ac47d-7e60-413e-9381-0e4671e6f572', // This conversation ID is for local debugging only
         avatarVideoContainerElement: document.getElementById('avatar-container'),
         // localVideoContainerElement: document.getElementById('local-container'), // sendLocalVideo: false makes this irrelevant
@@ -241,8 +241,11 @@ function setHarkerState(enabled) {
     // And I just can't be bothered to put time into figuring out why right now...
 
     if (enabled) {
-        var stream = fm.deviceManager.mediaHandler.localStream$._value
-        var options = {};
+        var stream = uneeq.deviceManager.mediaHandler.localStream$._value
+        var options = {
+            "threshold": "-35",
+            "play": false
+        };
         window.speechEvents = hark(stream, options);
         console.log("Enabling Harker");
         window.speechEvents.on('speaking', function () {
