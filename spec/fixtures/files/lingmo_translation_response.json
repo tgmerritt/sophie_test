@@ -1,0 +1,16 @@
+{
+    "ResponseText": "\"Quel est votre nom?\"",
+    "ResponseTexts": null,
+    "Status": false,
+    "Message": null,
+    "ID": 0,
+    "RequestEndPoint": "/v1/Transltion/doTranslate",
+    "Parameters": [
+        "sourceLang: en-US",
+        "targetLang: fr-FR",
+        "sourceText: \"What is your name?\""
+    ],
+    "Code": 108,
+    "IsError": false,
+    "Description": "Translation processed successfully"
+}
