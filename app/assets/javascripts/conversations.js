@@ -12,7 +12,8 @@ window.onload = function () {
         // conversationId: '1507ece5-dafd-49fd-8b8b-699f40836f43', // dialog-flow
         // conversationId: '9c7dafd7-2d90-49aa-b66a-2dfc394865e1', // sophie-digital-human-test
         // conversationId: '618ac47d-7e60-413e-9381-0e4671e6f572', // This conversation ID is for local debugging only
-        conversationId: '3c4a18bf-251d-4c81-a302-edd63d12cc24', // pandorabots
+        // conversationId: '3c4a18bf-251d-4c81-a302-edd63d12cc24', // pandorabots
+        conversationId: '348e625a-7246-44ca-8db5-243db05fcc43', // Lingmo
         avatarVideoContainerElement: document.getElementById('avatar-container'),
         // localVideoContainerElement: document.getElementById('local-container'), // sendLocalVideo: false makes this irrelevant
         customData: {},

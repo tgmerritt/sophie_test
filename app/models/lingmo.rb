@@ -2,8 +2,6 @@
 
 class Lingmo < ApplicationRecord
   include HTTParty
-  require 'uri'
-  require 'net/http'
 
   def get_token
     response = HTTParty.get("http://live.lingmo-api.com/v1/token/get/#{Rails.application.secrets.lingmo_api_key}")
@@ -37,6 +35,6 @@ class Lingmo < ApplicationRecord
     }
     response = HTTParty.post('http://live.lingmo-api.com/v1/translation/dotranslate', options)
 
-    JSON.parse(response['ResponseText'])
+    response['ResponseText']
   end
 end
