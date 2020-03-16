@@ -154,6 +154,7 @@ class Houndify
         create_json_to_send("Sorry, I cannot answer that right now", nil, houndify_configure_expression)
     else
         text = @response["AllResults"][0]["WrittenResponseLong"]
+        text = Lingmo.first_or_initialize.translate("en-US", "es-ES", text)
         create_json_to_send(text, houndify_combined_html(houndify_html, houndify_html_assets), houndify_configure_expression)
     end
   end
