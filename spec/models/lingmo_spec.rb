@@ -26,6 +26,12 @@ RSpec.describe Lingmo, type: :model do
       lingmo = build(:lingmo)
       expect(lingmo.expired?).to be true
     end
+
+    it "returns true when the expiration_timestamp is nil" do
+      lingmo = build(:lingmo)
+      lingmo.expiration_timestamp = nil
+      expect(lingmo.expired?).to be true
+    end
   end
 
   describe 'Check 60 minutes into the future' do

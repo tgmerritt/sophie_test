@@ -1,20 +1,23 @@
 # frozen_string_literal: true
 
 class Lingmo < ApplicationRecord
+  after_initialize :get_token unless Rails.env.test?
   include HTTParty
 
   def get_token
     response = HTTParty.get("http://live.lingmo-api.com/v1/token/get/#{Rails.application.secrets.lingmo_api_key}")
-    Lingmo.delete_all
     update_attributes(token: response['Token'], owner: response['Owner'], lingmo_id: response['ID'], expiration_timestamp: Time.at(response['ExpiresAtTimestamp']), request_endpoint: response['RequestEndPoint'])
   end
 
   def expired?
     # If no token exists we need to fetch it
-    return true if expiration_timestamp.nil?
-
     # Return true if the timestamp for the token is more than 2 hours old
-    Time.now > (expiration_timestamp + 2.hours)
+    if expiration_timestamp.nil? || Time.now > (expiration_timestamp + 2.hours)
+      Lingmo.delete_all
+      true
+    else
+      false
+    end
   end
 
   # Source and Target are both language codes
@@ -25,7 +28,7 @@ class Lingmo < ApplicationRecord
     get_token if expired?
 
     headers = {
-      "Authorization": self.token,
+      "Authorization": token,
       "Content-Type": 'text/plain'
     }
     options = {
