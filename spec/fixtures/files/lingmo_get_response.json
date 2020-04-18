@@ -1,0 +1,15 @@
+{
+    "Token": "2ZCKr5iD))DVtCRabSXIA_7sC=yJkeHYffI5vd)UVYmzc5ePP2",
+    "Owner": "Uneeq",
+    "ExpiresAt": "/Date(1584390800230)/",
+    "ExpiresAtTimestamp": 1584365600,
+    "ID": 36483,
+    "RequestEndPoint": "AssignSession",
+    "Parameters": [
+        "47.222.43.208",
+        "ZvO9JbeDzA6sVEtS2e=Nv0=(DTlt=tGEutoE)tRMZFcC5L2MK2"
+    ],
+    "Code": 100,
+    "IsError": false,
+    "Description": "Token successfully acquired"
+}

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class WeatherHook
-  # This is going to be the webhook for Weather with Dialogflow - stubbing out for now
   def initialize(params = {})
     params.each { |key, value| instance_variable_set("@#{key}", value) }
     @fulfillment_text, @location = nil
