@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Lingmo < ApplicationRecord
+  # We call first_or_initialize where we want to use this class, so if there is no DB record at all, we're going to get the token
   after_initialize :get_token unless Rails.env.test?
   include HTTParty
 

@@ -16,3 +16,6 @@
 // const imagePath = (name) => images(name, true)
 
 console.log('Hello World from Webpacker')
+
+// Require uneeq-js module and make it available to the front-end with javascript_pack_tag :application in application.html.erb
+require("uneeq-js/dist/umd");
