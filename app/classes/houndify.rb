@@ -253,6 +253,7 @@ class Houndify
           "matchedContext": "",
           "conversationPayload": houndify_conversation_state,
       }
+      puts "Answer config before reply to UneeQ: \n\n#{body}\n\n"
       return body
   end
 end
