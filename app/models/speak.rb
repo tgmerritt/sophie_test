@@ -38,7 +38,7 @@ class Speak < ApplicationRecord
             "default": true
           }],
           "displayHtml": {
-            "html": '<h1>TYLER IS THE MAN</h1>'
+            "html": "<h2>#{params['text_to_speak']}</h2>"
           }
         }
       ),
