@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "^4.0.7",
-    "serialize-javascript": "^2.1.1",
+    "serialize-javascript": "^4.0.0",
     "ts-loader": "^6.0.4",
     "uneeq-js": "^2.28.0"
   },
